@@ -1,0 +1,10 @@
+plugin.tx_falgallery {
+	view {
+		# cat=plugin.tx_falgallery/file; type=string; label=Path to template root (FE)
+		templateRootPath = EXT:fal_gallery/Resources/Private/Templates/
+		# cat=plugin.tx_falgallery/file; type=string; label=Path to template partials (FE)
+		partialRootPath = EXT:fal_gallery/Resources/Private/Partials/
+		# cat=plugin.tx_falgallery/file; type=string; label=Path to template layouts (FE)
+		layoutRootPath = EXT:fal_gallery/Resources/Private/Layouts/
+	}
+}

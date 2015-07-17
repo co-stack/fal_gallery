@@ -1,0 +1,305 @@
+<T3DataStructure>
+	<sheets>
+		<main>
+			<ROOT>
+				<TCEforms>
+					<sheetTitle>Function</sheetTitle>
+				</TCEforms>
+				<type>array</type>
+				<el>
+					<switchableControllerActions>
+						<TCEforms>
+							<label>Select function</label>
+							<onChange>reload</onChange>
+							<config>
+								<type>select</type>
+								<items>
+									<numIndex index="0">
+										<numIndex index="0">Select Plugin type</numIndex>
+										<numIndex index="1"></numIndex>
+									</numIndex>
+									<numIndex index="1">
+										<numIndex index="0">Show</numIndex>
+										<numIndex index="1">Gallery->show;</numIndex>
+									</numIndex>
+									<numIndex index="2">
+										<numIndex index="0">List</numIndex>
+										<numIndex index="1">Gallery->list;</numIndex>
+									</numIndex>
+									<numIndex index="3">
+										<numIndex index="0">Category</numIndex>
+										<numIndex index="1">Gallery->category;</numIndex>
+									</numIndex>
+								</items>
+							</config>
+						</TCEforms>
+					</switchableControllerActions>
+				</el>
+			</ROOT>
+		</main>
+		<show>
+			<ROOT>
+			<TCEforms>
+				<sheetTitle>Show Settings</sheetTitle>
+				<displayCond><![CDATA[FIELD:main.switchableControllerActions:=:Gallery->show;]]></displayCond>
+			</TCEforms>
+			<type>array</type>
+				<el>
+					<settings.default.image>
+						<TCEforms>
+							<label>Default Image</label>
+							<config>
+								<type>input</type>
+								<size>30</size>
+								<eval>trim</eval>
+								<wizards type="array">
+									<_PADDING type="integer">2</_PADDING>
+									<link type="array">
+										<type>popup</type>
+										<title>Link</title>
+										<icon>link_popup.gif</icon>
+										<script>browse_links.php?mode=wizard</script>
+										<params type="array">
+											<JSopenParams>height=300,width=500,status=0,menubar=0,scrollbars=1
+											</JSopenParams>
+											<blindLinkFields>params,class</blindLinkFields>
+											<blindLinkOptions>page,mail,spec,folder,url</blindLinkOptions>
+										</params>
+									</link>
+								</wizards>
+							</config>
+						</TCEforms>
+					</settings.default.image>
+					<settings.show.exif>
+						<TCEforms>
+							<label>Read EXIF Data</label>
+							<config>
+								<type>check</type>
+								<default>0</default>
+							</config>
+						</TCEforms>
+					</settings.show.exif>
+				</el>
+			</ROOT>
+		</show>
+		<list>
+			<ROOT>
+				<TCEforms>
+					<sheetTitle>List Settings</sheetTitle>
+					<displayCond><![CDATA[FIELD:main.switchableControllerActions:=:Gallery->list;]]></displayCond>
+				</TCEforms>
+				<type>array</type>
+				<el>
+					<settings.default.folder>
+						<TCEforms>
+							<label>Default Source Folder</label>
+							<config>
+								<type>input</type>
+								<size>30</size>
+								<eval>trim</eval>
+								<wizards type="array">
+									<_PADDING type="integer">2</_PADDING>
+									<link type="array">
+										<type>popup</type>
+										<title>Link</title>
+										<icon>link_popup.gif</icon>
+										<script>browse_links.php?mode=wizard</script>
+										<params type="array">
+											<JSopenParams>height=300,width=500,status=0,menubar=0,scrollbars=1</JSopenParams>
+											<blindLinkFields>params,class</blindLinkFields>
+											<blindLinkOptions>page,mail,spec,file,url</blindLinkOptions>
+										</params>
+									</link>
+								</wizards>
+							</config>
+						</TCEforms>
+					</settings.default.folder>
+					<settings.list.useLightBox>
+						<TCEforms>
+							<label>Generate Lightbox URLs instead of links for Show View</label>
+							<config>
+								<type>check</type>
+								<default>0</default>
+							</config>
+						</TCEforms>
+					</settings.list.useLightBox>
+				</el>
+			</ROOT>
+		</list>
+		<category>
+			<ROOT>
+				<TCEforms>
+					<sheetTitle>Category Settings</sheetTitle>
+					<displayCond><![CDATA[FIELD:main.switchableControllerActions:=:Gallery->category;]]></displayCond>
+				</TCEforms>
+				<type>array</type>
+				<el>
+					<settings.default.folder>
+						<TCEforms>
+							<label>Root Source Folder</label>
+							<config>
+								<type>input</type>
+								<size>30</size>
+								<eval>trim</eval>
+								<wizards type="array">
+									<_PADDING type="integer">2</_PADDING>
+									<link type="array">
+										<type>popup</type>
+										<title>Link</title>
+										<icon>link_popup.gif</icon>
+										<script>browse_links.php?mode=wizard</script>
+										<params type="array">
+											<JSopenParams>height=300,width=500,status=0,menubar=0,scrollbars=1</JSopenParams>
+											<blindLinkFields>params,class</blindLinkFields>
+											<blindLinkOptions>page,mail,spec,file,url</blindLinkOptions>
+										</params>
+									</link>
+								</wizards>
+							</config>
+						</TCEforms>
+					</settings.default.folder>
+				</el>
+			</ROOT>
+		</category>
+		<general>
+			<ROOT>
+				<TCEforms>
+					<sheetTitle>Additional Settings</sheetTitle>
+				</TCEforms>
+				<type>array</type>
+				<el>
+					<settings.size.height>
+						<TCEforms>
+							<label>Image height (px, max 99999), leave empty for original size</label>
+							<config>
+								<type>input</type>
+								<size>2</size>
+								<maxlength>5</maxlength>
+								<default>200</default>
+								<eval>int</eval>
+							</config>
+						</TCEforms>
+					</settings.size.height>
+					<settings.size.width>
+						<TCEforms>
+							<label>Image width (px, max 99999), leave empty for original size</label>
+							<config>
+								<type>input</type>
+								<size>2</size>
+								<maxlength>5</maxlength>
+								<default>200</default>
+								<eval>int</eval>
+							</config>
+						</TCEforms>
+					</settings.size.width>
+					<settings.cropping>
+						<TCEforms>
+							<label>Select Image cropping direction</label>
+							<config>
+								<type>select</type>
+								<items type="array">
+									<numIndex index="0" type="array">
+										<numIndex index="0">No Cropping</numIndex>
+										<numIndex index="1"></numIndex>
+									</numIndex>
+									<numIndex index="1" type="array">
+										<numIndex index="0">Vertical</numIndex>
+										<numIndex index="1">height</numIndex>
+									</numIndex>
+									<numIndex index="2" type="array">
+										<numIndex index="0">Horizontal</numIndex>
+										<numIndex index="1">width</numIndex>
+									</numIndex>
+								</items>
+								<size>1</size>
+								<minitems>0</minitems>
+								<maxitems>1</maxitems>
+								<allowNonIdValues>1</allowNonIdValues>
+								<default>height</default>
+							</config>
+						</TCEforms>
+					</settings.cropping>
+					<settings.rows>
+						<TCEforms>
+							<label>rows (only for List and Category; zero or empty for nearly infinite)</label>
+							<config>
+								<type>input</type>
+								<size>2</size>
+								<maxlength>5</maxlength>
+								<default>5</default>
+								<eval>int</eval>
+							</config>
+						</TCEforms>
+					</settings.rows>
+					<settings.cols>
+						<TCEforms>
+							<label>cols (only for List and Category)</label>
+							<config>
+								<type>input</type>
+								<size>2</size>
+								<maxlength>5</maxlength>
+								<default>2</default>
+								<eval>int,required</eval>
+							</config>
+						</TCEforms>
+					</settings.cols>
+					<settings.extension>
+						<TCEforms>
+							<label>Supported Images extension. If none selected $GLOBALS['TYPO3_CONF_VARS']['GFX']['imagefile_ext'] will be used</label>
+							<config>
+								<type>select</type>
+								<items type="array">
+									<numIndex index="0" type="array">
+										<numIndex index="0">jpg</numIndex>
+										<numIndex index="1">jpg</numIndex>
+									</numIndex>
+									<numIndex index="1" type="array">
+										<numIndex index="0">png</numIndex>
+										<numIndex index="1">png</numIndex>
+									</numIndex>
+									<numIndex index="2" type="array">
+										<numIndex index="0">jpeg</numIndex>
+										<numIndex index="1">jpeg</numIndex>
+									</numIndex>
+									<numIndex index="3" type="array">
+										<numIndex index="0">tif</numIndex>
+										<numIndex index="1">tif</numIndex>
+									</numIndex>
+									<numIndex index="4" type="array">
+										<numIndex index="0">tiff</numIndex>
+										<numIndex index="1">tiff</numIndex>
+									</numIndex>
+									<numIndex index="5" type="array">
+										<numIndex index="0">bmp</numIndex>
+										<numIndex index="1">bmp</numIndex>
+									</numIndex>
+									<numIndex index="6" type="array">
+										<numIndex index="0">pcx</numIndex>
+										<numIndex index="1">pcx</numIndex>
+									</numIndex>
+									<numIndex index="7" type="array">
+										<numIndex index="0">tga</numIndex>
+										<numIndex index="1">tga</numIndex>
+									</numIndex>
+									<numIndex index="8" type="array">
+										<numIndex index="0">pdf</numIndex>
+										<numIndex index="1">pdf</numIndex>
+									</numIndex>
+									<numIndex index="9" type="array">
+										<numIndex index="0">ai</numIndex>
+										<numIndex index="1">ai</numIndex>
+									</numIndex>
+								</items>
+								<size>10</size>
+								<autoSizeMax>20</autoSizeMax>
+								<minitems>0</minitems>
+								<maxitems>9999</maxitems>
+								<allowNonIdValues>1</allowNonIdValues>
+							</config>
+						</TCEforms>
+					</settings.extension>
+				</el>
+			</ROOT>
+		</general>
+	</sheets>
+</T3DataStructure>

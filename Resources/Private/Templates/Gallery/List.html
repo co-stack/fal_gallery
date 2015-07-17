@@ -1,0 +1,41 @@
+Showing images {firstImage} to {lastImage} <br/>
+{itemsOnThisPage} on this page of total {numberOfImages} <br/>
+Page {currentPage} of {numberOfPages} <br/>
+
+<h1>{currentCategoryFolder.parentFolder.name}</h1>
+
+<f:for each="{imageGrid}" as="col">
+	<div class="row">
+		<f:for each="{col}" as="image">
+			<div class="col" style="float: left">
+				<f:if condition="{settings.list.useLightBox}">
+					<f:then>
+						<a href="{f:uri.image(image:image, maxWidth:'{maxImageWidth}')}" class="{settings.lightboxCssClass}" rel="{lightboxRelAttribute}" title="{image.properties.title}">
+							<f:image image="{image}" width="{settings.size.width}" height="{settings.size.height}"/>
+						</a>
+					</f:then>
+					<f:else>
+						<f:link.action arguments="{image:image.uid, listPage:currentPage, categoryPage:currentCategoryPage, categoryFolder:currentCategoryFolder.uid, listFolder:currentListFolder.uid}">
+							<f:image image="{image}" width="{settings.size.width}" height="{settings.size.height}"/>
+						</f:link.action>
+					</f:else>
+				</f:if>
+			</div>
+		</f:for>
+		<div style="clear: both"></div>
+	</div>
+</f:for>
+
+
+<f:if condition="{numberOfPages} > 1">
+	<f:if condition="{isFirstPage}">
+		<f:else>
+			<f:link.action arguments="{listPage:previousPage, image:currentImage.uid, categoryPage:currentCategoryPage, categoryFolder:currentCategoryFolder.uid, listFolder:currentListFolder.uid}">previous</f:link.action>
+		</f:else>
+	</f:if>
+	<f:if condition="{isLastPage}">
+		<f:else>
+			<f:link.action arguments="{listPage:nextPage, image:currentImage.uid, categoryPage:currentCategoryPage, categoryFolder:currentCategoryFolder.uid, listFolder:currentListFolder.uid}">next</f:link.action>
+		</f:else>
+	</f:if>
+</f:if>
