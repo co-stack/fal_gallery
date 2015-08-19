@@ -1,6 +1,10 @@
-Showing images {firstImage} to {lastImage} <br/>
-{itemsOnThisPage} on this page of total {numberOfImages} <br/>
-Page {currentPage} of {numberOfPages} <br/>
+<f:if condition="{numberOfImages} > 1">
+	<f:translate key="showingImages" arguments="{0: firstImage, 1: lastImage}">Showing images {firstImage} to {lastImage}</f:translate><br/>
+	<f:translate key="showingImagesOfTotal" arguments="{0: itemsOnThisPage, 1: numberOfImages}">{itemsOnThisPage} on this page of total {numberOfImages}</f:translate><br/>
+</f:if>
+<f:if condition="{numberOfPages} > 1">
+	<f:translate key="showingPagesOfTotal" arguments="{0: currentPage, 1: numberOfPages}">Page {currentPage} of {numberOfPages}</f:translate><br/>
+</f:if>
 
 <h1>{currentCategoryFolder.parentFolder.name}</h1>
 
@@ -30,12 +34,13 @@ Page {currentPage} of {numberOfPages} <br/>
 <f:if condition="{numberOfPages} > 1">
 	<f:if condition="{isFirstPage}">
 		<f:else>
-			<f:link.action arguments="{listPage:previousPage, image:currentImage.uid, categoryPage:currentCategoryPage, categoryFolder:currentCategoryFolder.uid, listFolder:currentListFolder.uid}">previous</f:link.action>
+			<f:link.action arguments="{listPage:previousPage, image:currentImage.uid, categoryPage:currentCategoryPage, categoryFolder:currentCategoryFolder.uid, listFolder:currentListFolder.uid}"><f:translate key="previous">previous</f:translate></f:link.action>
 		</f:else>
 	</f:if>
 	<f:if condition="{isLastPage}">
 		<f:else>
-			<f:link.action arguments="{listPage:nextPage, image:currentImage.uid, categoryPage:currentCategoryPage, categoryFolder:currentCategoryFolder.uid, listFolder:currentListFolder.uid}">next</f:link.action>
+			<f:link.action arguments="{listPage:nextPage, image:currentImage.uid, categoryPage:currentCategoryPage, categoryFolder:currentCategoryFolder.uid, listFolder:currentListFolder.uid}"><f:translate key="next">next</f:translate></f:link.action>
 		</f:else>
 	</f:if>
 </f:if>
+

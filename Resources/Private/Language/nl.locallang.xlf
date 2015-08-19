@@ -1,28 +1,28 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" datatype="plaintext" original="messages" date="2014-08-02T18:31:39Z" product-name="fal_gallery">
+	<file source-language="en" target-language="nl" datatype="plaintext" original="messages" date="2014-08-02T18:31:39Z" product-name="fal_gallery">
 		<header/>
 		<body>
 			<trans-unit id="previous" xml:space="preserve">
-				<source>previous</source>
+				<target>vorige</target>
 			</trans-unit>
 			<trans-unit id="next" xml:space="preserve">
-				<source>next</source>
+				<target>volgende</target>
 			</trans-unit>
 			<trans-unit id="upwards" xml:space="preserve">
-				<source>upwards</source>
+				<target>omhoog</target>
 			</trans-unit>
 			<trans-unit id="showingFolders" xml:space="preserve">
-				<source>Showing folders %s to %s</source>
+				<target>Map %s van %s</target>
 			</trans-unit>
 			<trans-unit id="showingImages" xml:space="preserve">
-				<source>Showing images %s to %s</source>
+				<target>Afbeeldingen %s van %s</target>
 			</trans-unit>
 			<trans-unit id="showingPagesOfTotal" xml:space="preserve">
-				<source>Page %s of %s!!</source>
+				<target>Pagina %s van %s</target>
 			</trans-unit>
 			<trans-unit id="showingImagesOfTotal" xml:space="preserve">
-				<source>%s on this page of total %s</source>
+				<target>%s afbeeldingen van %s</target>
 			</trans-unit>
 		</body>
 	</file>
