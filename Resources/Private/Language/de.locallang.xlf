@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2014-08-02T18:31:39Z" product-name="fal_gallery">
+		<header/>
+		<body>
+			<trans-unit id="previous" xml:space="preserve">
+				<target>zurück</target>
+			</trans-unit>
+			<trans-unit id="next" xml:space="preserve">
+				<target>weiter</target>
+			</trans-unit>
+			<trans-unit id="upwards" xml:space="preserve">
+				<target>Aufwärts</target>
+			</trans-unit>
+			<trans-unit id="showing_folders" xml:space="preserve">
+				<target>Zeige Galerie von %s bis %s</target>
+			</trans-unit>
+			<trans-unit id="showing_images" xml:space="preserve">
+				<target>Bilder von %s bis %s</target>
+			</trans-unit>
+			<trans-unit id="showing_pages_of_total" xml:space="preserve">
+				<target>Seite %s von %s</target>
+			</trans-unit>
+			<trans-unit id="showing_images_of_total" xml:space="preserve">
+				<target>%s von insgesamt %s</target>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>
