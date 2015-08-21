@@ -16,7 +16,7 @@
 				<target>Map %s van %s</target>
 			</trans-unit>
 			<trans-unit id="showing_images" xml:space="preserve">
-				<target>Afbeeldingen %s van %s</target>
+				<target>Afbeeldingen %s tot %s</target>
 			</trans-unit>
 			<trans-unit id="showing_pages_of_total" xml:space="preserve">
 				<target>Pagina %s van %s</target>
