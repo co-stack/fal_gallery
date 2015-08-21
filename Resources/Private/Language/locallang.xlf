@@ -12,16 +12,16 @@
 			<trans-unit id="upwards" xml:space="preserve">
 				<source>upwards</source>
 			</trans-unit>
-			<trans-unit id="showingFolders" xml:space="preserve">
+			<trans-unit id="showing_folders" xml:space="preserve">
 				<source>Showing folders %s to %s</source>
 			</trans-unit>
-			<trans-unit id="showingImages" xml:space="preserve">
+			<trans-unit id="showing_images" xml:space="preserve">
 				<source>Showing images %s to %s</source>
 			</trans-unit>
-			<trans-unit id="showingPagesOfTotal" xml:space="preserve">
+			<trans-unit id="showing_pages_of_total" xml:space="preserve">
 				<source>Page %s of %s!!</source>
 			</trans-unit>
-			<trans-unit id="showingImagesOfTotal" xml:space="preserve">
+			<trans-unit id="showing_images_of_total" xml:space="preserve">
 				<source>%s on this page of total %s</source>
 			</trans-unit>
 		</body>

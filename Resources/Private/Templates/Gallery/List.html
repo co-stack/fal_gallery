@@ -1,9 +1,9 @@
 <f:if condition="{numberOfImages} > 1">
-	<f:translate key="showingImages" arguments="{0: firstImage, 1: lastImage}">Showing images {firstImage} to {lastImage}</f:translate><br/>
-	<f:translate key="showingImagesOfTotal" arguments="{0: itemsOnThisPage, 1: numberOfImages}">{itemsOnThisPage} on this page of total {numberOfImages}</f:translate><br/>
+	<f:translate key="showing_images" arguments="{0: firstImage, 1: lastImage}">Showing images {firstImage} to {lastImage}</f:translate><br/>
+	<f:translate key="showing_images_of_total" arguments="{0: itemsOnThisPage, 1: numberOfImages}">{itemsOnThisPage} on this page of total {numberOfImages}</f:translate><br/>
 </f:if>
 <f:if condition="{numberOfPages} > 1">
-	<f:translate key="showingPagesOfTotal" arguments="{0: currentPage, 1: numberOfPages}">Page {currentPage} of {numberOfPages}</f:translate><br/>
+	<f:translate key="showing_pages_of_total" arguments="{0: currentPage, 1: numberOfPages}">Page {currentPage} of {numberOfPages}</f:translate><br/>
 </f:if>
 
 <h1>{currentCategoryFolder.parentFolder.name}</h1>
