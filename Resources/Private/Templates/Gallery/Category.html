@@ -1,3 +1,4 @@
+{namespace fgl=In2code\FalGallery\ViewHelpers}
 <f:if condition="{numberOfImages} > 1">
 	<f:translate key="showing_folders" arguments="{0: firstImage, 1: lastImage}">Showing folders {firstImage} to {lastImage}</f:translate> <br/>
 	<f:translate key="showing_images_of_total" arguments="{0: itemsOnThisPage, 1: numberOfImages}">{itemsOnThisPage} on this page of total {numberOfImages}</f:translate><br/>
@@ -12,7 +13,7 @@
 			<div class="col" style="float: left">
 				<f:link.action arguments="{categoryFolder:folder.folderImage.uid, image:currentImage.uid, listFolder:folder.folderImage.uid}">
 					<f:image image="{folder.folderImage}" width="{settings.size.width}" height="{settings.size.height}"/>
-					<span>{folder.folder.name}</span>
+					<span><fgl:underscoreToSpace>{folder.folder.name}</fgl:underscoreToSpace></span>
 				</f:link.action>
 			</div>
 		</f:for>
