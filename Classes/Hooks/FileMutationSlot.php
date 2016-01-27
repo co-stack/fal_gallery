@@ -107,13 +107,13 @@ class FileMutationSlot implements \TYPO3\CMS\Core\SingletonInterface
      * Post file rename
      *
      * @param FileInterface $file The file
-     * @param Folder $folder The folder
+     * @param string $targetFolder
      *
      * @return void
      */
-    public function postFileRename(FileInterface $file, Folder $folder)
+    public function postFileRename(FileInterface $file, $targetFolder)
     {
-        $this->flushCacheForAffectedPages($folder);
+        $this->flushCacheForAffectedPages($file->getParentFolder());
     }
 
     /**
