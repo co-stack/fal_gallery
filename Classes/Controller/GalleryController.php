@@ -130,10 +130,9 @@ class GalleryController extends ActionController
         if ($image instanceof File) {
             $this->view->assign('image', $image);
             $localCopy = $image->getForLocalProcessing();
-            if ($this->settings['show']['exif'] && function_exists('exif_read_data')
-                && function_exists(
-                    'exif_imagetype'
-                )
+            if ($this->settings['show']['exif']
+                && function_exists('exif_read_data')
+                && function_exists('exif_imagetype')
                 && exif_imagetype($localCopy)
             ) {
                 $this->view->assign('exifInformation', exif_read_data($localCopy, '', true));
@@ -298,9 +297,9 @@ class GalleryController extends ActionController
         $imagesPerPage = $this->settings['rows'] * $this->settings['cols'];
         $numberOfPages = (int)ceil($numberOfImages / $imagesPerPage);
 
-        if ($currentPage > $numberOfPages) {
-            $currentPage = $numberOfPages;
-        }
+        // set current page to last page if it goes beyond
+        $currentPage = min($currentPage, $numberOfPages);
+
         $offset = ($currentPage - 1) * $imagesPerPage;
         $imagesToDisplay = array_slice($allItems, $offset, $imagesPerPage, true);
 
@@ -424,22 +423,22 @@ class GalleryController extends ActionController
      */
     public function validateConfiguration()
     {
-        $validated = true;
+        $isValid = true;
         if ($this->actionMethodName === 'listAction' || $this->actionMethodName === 'categoryAction') {
             if (!isset($this->settings['default']['folder'])
                 || count(explode(':', $this->settings['default']['folder'])) !== 3
             ) {
                 $this->errorMessageArray['current'] = 11;
-                $validated = false;
+                $isValid = false;
             }
         }
         if ($this->actionMethodName === 'showAction') {
-            if (!isset($this->settings['default']['image']) || $this->settings['default']['image'] === '') {
+            if (empty($this->settings['default']['image'])) {
                 $this->errorMessageArray['current'] = 10;
-                $validated = false;
+                $isValid = false;
             }
         }
-        return $validated;
+        return $isValid;
     }
 
     /**
@@ -463,12 +462,10 @@ class GalleryController extends ActionController
      */
     protected function setImageFileExtension()
     {
-        if (isset($this->settings['images']['extension']) && $this->settings['images']['extension'] !== '') {
+        if (!empty($this->settings['images']['extension'])) {
             $this->imageFileExtensions = $this->settings['images']['extension'];
         } else {
-            if (isset($GLOBALS['TYPO3_CONF_VARS']['GFX']['imagefile_ext'])
-                && !empty($GLOBALS['TYPO3_CONF_VARS']['GFX']['imagefile_ext'])
-            ) {
+            if (!empty($GLOBALS['TYPO3_CONF_VARS']['GFX']['imagefile_ext'])) {
                 $this->imageFileExtensions = $GLOBALS['TYPO3_CONF_VARS']['GFX']['imagefile_ext'];
             } else {
                 $this->imageFileExtensions = 'jpg,png,gif,bmp';
