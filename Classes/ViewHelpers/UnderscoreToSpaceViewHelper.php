@@ -31,24 +31,25 @@ use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
  * @package In2code\FalGallery\ViewHelpers
  * @author Michiel Roos <michiel@maxserv.com>
  */
-class UnderscoreToSpaceViewHelper extends AbstractViewHelper {
+class UnderscoreToSpaceViewHelper extends AbstractViewHelper
+{
+    /**
+     * Replace underscore with a space
+     *
+     * @param string $value The value
+     *
+     * @return string
+     */
+    public function render($value = null)
+    {
 
-	/**
-	 * Replace underscore with a space
-	 *
-	 * @param string $value The value
-	 *
-	 * @return string
-	 */
-	public function render($value = NULL) {
+        if ($value === null) {
+            $value = $this->renderChildren();
+            if ($value === null) {
+                return '';
+            }
+        }
 
-		if ($value === NULL) {
-			$value = $this->renderChildren();
-			if ($value === NULL) {
-				return '';
-			}
-		}
-
-		return str_replace('_', ' ', $value);
-	}
+        return str_replace('_', ' ', $value);
+    }
 }
