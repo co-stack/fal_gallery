@@ -152,11 +152,14 @@ class FileMutationSlot implements \TYPO3\CMS\Core\SingletonInterface
      */
     protected function flushCacheForAffectedPages(Folder $folder)
     {
+        $evaluate = $folder->getStorage()->getEvaluatePermissions();
+        $folder->getStorage()->setEvaluatePermissions(false);
         $this->flushCacheForPages(
             $this->getAffectedPageIds(
                 $folder->getParentFolder()->getParentFolder()
             )
         );
+        $folder->getStorage()->setEvaluatePermissions($evaluate);
     }
 
     /**

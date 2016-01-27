@@ -64,11 +64,7 @@ class FolderMutationSlot implements \TYPO3\CMS\Core\SingletonInterface
      */
     public function postFolderMutation(Folder $folder, $some = null, $other = null, $parameters = null)
     {
-        $this->flushCacheForPages(
-            $this->getAffectedPageIds(
-                $folder->getParentFolder()->getParentFolder()
-            )
-        );
+        $this->flushCacheForAffectedPages($folder);
     }
 
     /**
@@ -83,7 +79,6 @@ class FolderMutationSlot implements \TYPO3\CMS\Core\SingletonInterface
      */
     public function postFolderMove(Folder $folder, Folder $targetFolder, $newName, Folder $originalFolder)
     {
-
         $this->flushCacheForAffectedPages($originalFolder);
         $this->flushCacheForAffectedPages($targetFolder);
     }
@@ -113,11 +108,14 @@ class FolderMutationSlot implements \TYPO3\CMS\Core\SingletonInterface
      */
     protected function flushCacheForAffectedPages(Folder $folder)
     {
+        $evaluate = $folder->getStorage()->getEvaluatePermissions();
+        $folder->getStorage()->setEvaluatePermissions(false);
         $this->flushCacheForPages(
             $this->getAffectedPageIds(
                 $folder->getParentFolder()->getParentFolder()
             )
         );
+        $folder->getStorage()->setEvaluatePermissions($evaluate);
     }
 
     /**
