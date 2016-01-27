@@ -16,6 +16,7 @@ if (!defined('TYPO3_MODE')) {
 );
 
 // Flush page caches of affected pages when files or folders change
+/** @var \TYPO3\CMS\Extbase\SignalSlot\Dispatcher $signalSlotDispatcher */
 $signalSlotDispatcher = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(
     'TYPO3\\CMS\\Extbase\\SignalSlot\\Dispatcher'
 );
