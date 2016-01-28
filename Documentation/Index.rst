@@ -1,6 +1,6 @@
-========
-fal_sftp
-========
+===========
+fal_gallery
+===========
 
 
 Last time updated: |today|
@@ -12,22 +12,22 @@ Last time updated: |today|
      2014 - 2014
 
    :Classification:
-     fal_sftp
+     fal_gallery
 
    :Version:
-     0.2.5
+     1.0.2
 
    :Language:
      en
 
    :Keywords:
-     fal_sft, fal, sftp, driver, storage, file abstraction layer
+     fal_gallery, fal, gallery, FAL, file abstraction layer, folder view, navigatable folder tree
 
    :Author:
      Oliver Eglseder
 
    :Email:
-     oliver.eglseder@in2code.de
+     php@vxvr.de
 
 Contents:
 

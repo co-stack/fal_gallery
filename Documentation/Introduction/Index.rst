@@ -38,4 +38,5 @@ Features planned for future implementation:
 - Preview of Images in "default image" selection
 - Complete AJAX loading
 - Javascript interface definition for safe extension update
-- List View without Single View but with Light-/FancyBox
+- Installation via composer (composer.json and packagist registration)
+- Caching of EXIF data

@@ -5,8 +5,8 @@ Short'n'quick
 -------------
 
 1. Think of a wise folder structure
-2. Create that folder structure in a (**single**) file storage of your choice
-3. Arrange the List and Single View according to your needs, add the Gallery View if neccessary
+2. Create that folder structure in a file storage of your choice
+3. Arrange the List and Single View according to your needs, add the Gallery View if necessary
 4. Choose a Folder for List and Gallery View, choose a default image for the Single View
 5. Open the Frontend to check everything
 6. Have fun and browse your Gallery
@@ -21,12 +21,12 @@ Add folders and files that represent galleries and sub-galleries (there is no li
    :width: 800px
 
 Next go to the Pagemodule and insert FAL Gallery Plugins where needed.
-Notice that only arrangements of Plugin Views where at least a "List View" with option "" and a "Single View" is present make sense.
+Notice that only arrangements of Plugin Views where at least a "List View" with option "" and a "Single View" is present makes sense.
 
 .. image:: ../_static/fal_gallery_usage_2.jpg
    :width: 800px
 
-You can start with the Single View. Choose a default image that is shown when the page with the Plugin is openend first.
+You can start with the Single View. Choose a default image that is shown when the page with the Plugin is opened first.
 This image may be any image in your TYPO3 environment.
 When Single View is selected, you may enable the EXIF Data readout.
 Notice that the results of the readout are not cached and may slow down your page.
@@ -45,7 +45,7 @@ Notice that setting width and height will distort the image, when the picture si
 
 Next add a new FAL Gallery Plugin and select the List View. Select the folder you wan't to show as Thumbnails.
 Select the Thumbnail size as needed and configure your Thumbnail Grid. "cols" is short for Columns.
-All images from that folder, which match the selected file type, will be show as Thumbnails in the Grid.
+All images from that folder, which match the selected file type, will be shown as Thumbnails in the Grid.
 If the Grid has only 2 cols and 2 rows, a maximum of 4 Images is shown. If there are more than 4 Images in the selected Folder,
 pagination will be enabled automatically.
 
@@ -62,6 +62,6 @@ You can configure your global lightbox handling in the constant editor.
 
 
 On top of that you might add a Gallery View, that allows the Frontend User to navigate trough your folders.
-Select a Root Folder. In the Frontend you will see that this View generates Thumbnails from the first picture inside each subfolder.
-When you click on one of these images, the subfolder is selected and Thumbnails for the subfolder's subfolders are shown, and so on.
+Select a root folder. In the Frontend you will see that this view generates thumbnails from the first picture inside each subfolder.
+When you click on one of these images, the subfolder is selected and thumbnails for the subfolder's subfolders are shown, and so on.
 When you are inside a subfolder, you can navigate upwards again until you reach the original root folder.
