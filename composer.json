@@ -1,0 +1,12 @@
+{
+    "name": "vertexvaar/fal_gallery",
+    "description": "FAL bases gallery for TYPO3",
+    "type": "typo3-cms-extension",
+    "license": "GPL-3.0",
+    "authors": [
+        {
+            "name": "Oliver Eglseder",
+            "email": "php@vxvr.de"
+        }
+    ]
+}
