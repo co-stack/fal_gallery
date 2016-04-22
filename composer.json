@@ -8,5 +8,10 @@
             "name": "Oliver Eglseder",
             "email": "php@vxvr.de"
         }
-    ]
+    ],
+    "autoload": {
+        "psr-4": {
+            "In2code\\FalGallery\\": "Classes/"
+        }
+    }
 }
