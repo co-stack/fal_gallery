@@ -21,6 +21,7 @@ use TYPO3\CMS\Core\Resource\Filter\FileExtensionFilter;
 use TYPO3\CMS\Core\Resource\Folder;
 use TYPO3\CMS\Core\Resource\ResourceStorage;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
+use TYPO3\CMS\Extbase\Mvc\Controller\Arguments;
 use TYPO3\CMS\Extbase\Property\TypeConverter\FileConverter;
 
 /**
@@ -124,6 +125,7 @@ class GalleryController extends ActionController
     public function initializeShowAction()
     {
         if ($this->configurationInvalid) {
+            $this->arguments = $this->objectManager->get(Arguments::class);
             return;
         }
         $this->setFileTypeConverterFor('image');
@@ -162,6 +164,7 @@ class GalleryController extends ActionController
     public function initializeListAction()
     {
         if ($this->configurationInvalid) {
+            $this->arguments = $this->objectManager->get(Arguments::class);
             return;
         }
         $this->setFileTypeConverterFor('image');
@@ -232,6 +235,7 @@ class GalleryController extends ActionController
     public function initializeCategoryAction()
     {
         if ($this->configurationInvalid) {
+            $this->arguments = $this->objectManager->get(Arguments::class);
             return;
         }
         $this->setFileTypeConverterFor('image');
