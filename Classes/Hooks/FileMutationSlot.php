@@ -78,14 +78,17 @@ class FileMutationSlot implements \TYPO3\CMS\Core\SingletonInterface
     /**
      * Post file create
      *
-     * @param FileInterface $file The file
-     * @param Folder $folder The folder
+     * @param string $newFileIdentifier The created file name
+     * @param Folder $targetFolder The folder the file was placed into
      *
      * @return void
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
+     * @see \TYPO3\CMS\Core\Resource\ResourceStorage::createFile
      */
-    public function postFileCreate(FileInterface $file, Folder $folder)
+    public function postFileCreate($newFileIdentifier, Folder $targetFolder)
     {
-        $this->flushCacheForAffectedPages($folder);
+        $this->flushCacheForAffectedPages($targetFolder);
     }
 
     /**
