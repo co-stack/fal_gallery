@@ -174,6 +174,8 @@ class FolderMutationSlot implements SingletonInterface
      * Set the database connection
      *
      * @return void
+     *
+     * @SuppressWarnings(PHPMD.Superglobals)
      */
     private function setDatabaseConnection()
     {

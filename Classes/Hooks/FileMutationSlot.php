@@ -186,9 +186,10 @@ class FileMutationSlot implements SingletonInterface
     {
         $pids = array();
 
-        if ($folder->getStorage()->getDriverType() === 'Local') {
-            $res = $this->databaseConnection->sql_query(
-                "SELECT
+        if ($folder instanceof Folder) {
+            if ($folder->getStorage()->getDriverType() === 'Local') {
+                $res = $this->databaseConnection->sql_query(
+                    "SELECT
                   pid,
 				  ExtractValue(
 				    pi_flexform,
@@ -204,12 +205,13 @@ class FileMutationSlot implements SingletonInterface
 				    pi_flexform,
 				    '/T3FlexForms/data/sheet[@index=''list'']/language/field[@index=''settings.default.folder'']/value'
 				  ) LIKE 'file:"
-                . $folder->getCombinedIdentifier() . "%'"
-            );
-            while (($row = $this->databaseConnection->sql_fetch_assoc($res))) {
-                $pids[] = $row['pid'];
+                    . $folder->getCombinedIdentifier() . "%'"
+                );
+                while (($row = $this->databaseConnection->sql_fetch_assoc($res))) {
+                    $pids[] = $row['pid'];
+                }
+                $this->databaseConnection->sql_free_result($res);
             }
-            $this->databaseConnection->sql_free_result($res);
         }
 
         return $pids;
@@ -219,6 +221,8 @@ class FileMutationSlot implements SingletonInterface
      * Set the database connection
      *
      * @return void
+     *
+     * @SuppressWarnings(PHPMD.Superglobals)
      */
     private function setDatabaseConnection()
     {

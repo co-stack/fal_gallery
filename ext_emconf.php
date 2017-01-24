@@ -1,7 +1,7 @@
 <?php
 $EM_CONF[$_EXTKEY] = array(
     'title' => 'FAL Gallery',
-    'description' => 'Easy to use gallery with separate single- , category- and listview.',
+    'description' => 'Easy to use gallery with separate single-, category- and list view.',
     'category' => 'plugin',
     'author' => 'Oliver Eglseder',
     'author_email' => 'php@vxvr.de',

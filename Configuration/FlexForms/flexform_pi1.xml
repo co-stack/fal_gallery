@@ -16,7 +16,7 @@
 								<items>
 									<numIndex index="0">
 										<numIndex index="0">Select Plugin type</numIndex>
-										<numIndex index="1"></numIndex>
+										<numIndex index="1"/>
 									</numIndex>
 									<numIndex index="1">
 										<numIndex index="0">Show</numIndex>
@@ -218,7 +218,7 @@
 								<items type="array">
 									<numIndex index="0" type="array">
 										<numIndex index="0">No Cropping</numIndex>
-										<numIndex index="1"></numIndex>
+										<numIndex index="1"/>
 									</numIndex>
 									<numIndex index="1" type="array">
 										<numIndex index="0">Vertical</numIndex>

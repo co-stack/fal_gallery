@@ -79,8 +79,8 @@ class GalleryController extends ActionController
     /**
      * @var string
      */
-    protected $configurationErrorMessage = 'The FAL Gallery Plugin configuration is not correct.'
-                                           . ' Check the %s Plugin config. Error: "%s"';
+    protected $configErrorMessage = 'The FAL Gallery Plugin configuration is not correct.'
+                                    . ' Check the %s Plugin config. Error: "%s"';
 
     /**
      * @var array
@@ -529,7 +529,7 @@ class GalleryController extends ActionController
     protected function getErrorMessageForActionName($actionName)
     {
         return sprintf(
-            $this->configurationErrorMessage,
+            $this->configErrorMessage,
             $actionName,
             $this->errorMessageArray[$this->errorMessageArray['current']]
         );
