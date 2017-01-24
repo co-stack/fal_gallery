@@ -29,8 +29,6 @@ use TYPO3\CMS\Extbase\Property\TypeConverter\FileConverter;
  *    1: Storage must not change between Plugins
  *
  * Class GalleryController
- *
- * @package In2code\FalGallery\Controller
  */
 class GalleryController extends ActionController
 {

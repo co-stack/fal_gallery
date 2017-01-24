@@ -22,8 +22,6 @@ use TYPO3\CMS\Core\SingletonInterface;
 
 /**
  * Class FileConverter
- *
- * @package In2code\FalGallery\Property\TypeConverter
  */
 class FileConverter extends AbstractFileFolderConverter implements SingletonInterface
 {

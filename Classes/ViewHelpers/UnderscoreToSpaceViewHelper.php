@@ -28,7 +28,6 @@ use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
 /**
  * Class UnderscoreToSpaceViewHelper
  *
- * @package In2code\FalGallery\ViewHelpers
  * @author Michiel Roos <michiel@maxserv.com>
  */
 class UnderscoreToSpaceViewHelper extends AbstractViewHelper

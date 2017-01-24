@@ -22,8 +22,6 @@ use TYPO3\CMS\Extbase\Property\PropertyMappingConfigurationInterface;
 
 /**
  * Class AbstractFileFolderConverter
- *
- * @package In2code\FalGallery\Property\TypeConverter
  */
 abstract class AbstractFileFolderConverter extends \TYPO3\CMS\Extbase\Property\TypeConverter\AbstractFileFolderConverter
 {
