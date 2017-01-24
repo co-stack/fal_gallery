@@ -19,28 +19,26 @@ namespace In2code\FalGallery\Controller;
 use TYPO3\CMS\Core\Resource\File;
 use TYPO3\CMS\Core\Resource\Filter\FileExtensionFilter;
 use TYPO3\CMS\Core\Resource\Folder;
+use TYPO3\CMS\Core\Resource\ResourceFactory;
 use TYPO3\CMS\Core\Resource\ResourceStorage;
+use TYPO3\CMS\Core\Resource\StorageRepository;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use TYPO3\CMS\Extbase\Mvc\Controller\Arguments;
 use TYPO3\CMS\Extbase\Property\TypeConverter\FileConverter;
 
 /**
- * INFO:
- *    1: Storage must not change between Plugins
- *
- * Class GalleryController
+ * INFO: Storage must not change between Plugins
  */
 class GalleryController extends ActionController
 {
     /**
-     * @var \TYPO3\CMS\Core\Resource\StorageRepository
-     * @inject
+     * @var StorageRepository
      */
     protected $storageRepository;
 
     /**
-     * @var \TYPO3\CMS\Core\Resource\ResourceFactory
-     * @inject
+     * @var ResourceFactory
      */
     protected $resourceFactory;
 
@@ -91,6 +89,16 @@ class GalleryController extends ActionController
         10 => 'It seems you forgot to specify a default Image',
         11 => 'You might have forgot to configure a folder to display',
     );
+
+    /**
+     * GalleryController constructor.
+     */
+    public function __construct()
+    {
+        parent::__construct();
+        $this->resourceFactory = GeneralUtility::makeInstance('TYPO3\\CMS\\Core\\Resource\\ResourceFactory');
+        $this->storageRepository = GeneralUtility::makeInstance('TYPO3\\CMS\\Core\\Resource\\StorageRepository');
+    }
 
     /**
      * Set all the stuff needed for any plugin of this extension
