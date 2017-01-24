@@ -1,8 +1,8 @@
 {
     "name": "vertexvaar/fal_gallery",
-    "description": "FAL bases gallery for TYPO3",
+    "description": "FAL bases gallery for TYPO3, successor of wt_gallery",
     "type": "typo3-cms-extension",
-    "license": "GPL-3.0",
+    "license": "GPL-2.0",
     "authors": [
         {
             "name": "Oliver Eglseder",
