@@ -16,15 +16,13 @@ namespace In2code\FalGallery\Controller;
  * The TYPO3 project - inspiring people to share!
  */
 
+use In2code\FalGallery\Service\ResourceResolver;
 use TYPO3\CMS\Core\Resource\File;
 use TYPO3\CMS\Core\Resource\Filter\FileExtensionFilter;
 use TYPO3\CMS\Core\Resource\Folder;
-use TYPO3\CMS\Core\Resource\ResourceFactory;
 use TYPO3\CMS\Core\Resource\ResourceStorage;
-use TYPO3\CMS\Core\Resource\StorageRepository;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
-use TYPO3\CMS\Extbase\Mvc\Controller\Arguments;
 use TYPO3\CMS\Extbase\Property\TypeConverter\FileConverter;
 
 /**
@@ -33,24 +31,14 @@ use TYPO3\CMS\Extbase\Property\TypeConverter\FileConverter;
 class GalleryController extends ActionController
 {
     /**
-     * @var StorageRepository
+     * @var ResourceResolver
      */
-    protected $storageRepository;
-
-    /**
-     * @var ResourceFactory
-     */
-    protected $resourceFactory;
+    protected $resourceResolver = null;
 
     /**
      * @var ResourceStorage
      */
     protected $selectedStorage;
-
-    /**
-     * @var array
-     */
-    protected $storageInformation = array();
 
     /**
      * @var Folder
@@ -75,12 +63,6 @@ class GalleryController extends ActionController
     protected $configurationInvalid = false;
 
     /**
-     * @var string
-     */
-    protected $configErrorMessage = 'The FAL Gallery Plugin configuration is not correct.'
-                                    . ' Check the %s Plugin config. Error: "%s"';
-
-    /**
      * @var array
      */
     protected $errorMessageArray = array(
@@ -88,6 +70,7 @@ class GalleryController extends ActionController
         0 => 'Unknown Error',
         10 => 'It seems you forgot to specify a default Image',
         11 => 'You might have forgot to configure a folder to display',
+        12 => 'The called action was not recognized',
     );
 
     /**
@@ -96,8 +79,7 @@ class GalleryController extends ActionController
     public function __construct()
     {
         parent::__construct();
-        $this->resourceFactory = GeneralUtility::makeInstance('TYPO3\\CMS\\Core\\Resource\\ResourceFactory');
-        $this->storageRepository = GeneralUtility::makeInstance('TYPO3\\CMS\\Core\\Resource\\StorageRepository');
+        $this->resourceResolver = GeneralUtility::makeInstance('In2code\\FalGallery\\Service\\ResourceResolver');
     }
 
     /**
@@ -108,7 +90,7 @@ class GalleryController extends ActionController
      */
     public function initializeAction()
     {
-        if ($this->validateConfiguration()) {
+        if ($this->resourceResolver->isValid($this->settings['default'], $this->actionMethodName)) {
             $this->setImageFileExtension();
             $this->setImageSizes();
         } else {
@@ -132,7 +114,7 @@ class GalleryController extends ActionController
     public function initializeShowAction()
     {
         if ($this->configurationInvalid) {
-            $this->arguments = $this->objectManager->get(Arguments::class);
+            $this->arguments = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Mvc\\Controller\\Arguments');
             return;
         }
         $this->setFileTypeConverterFor('image');
@@ -149,7 +131,7 @@ class GalleryController extends ActionController
         }
         // when this plugin is standalone or no image has been selected in the list view
         if ($image === null) {
-            $image = $this->resourceFactory->retrieveFileOrFolderObject($this->settings['default']['image']);
+            $image = $this->resourceResolver->resolveResource($this->settings['default']['image']);
         }
         if ($image instanceof File) {
             $this->view->assign('image', $image);
@@ -172,7 +154,7 @@ class GalleryController extends ActionController
     public function initializeListAction()
     {
         if ($this->configurationInvalid) {
-            $this->arguments = $this->objectManager->get(Arguments::class);
+            $this->arguments = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Mvc\\Controller\\Arguments');
             return;
         }
         $this->setFileTypeConverterFor('image');
@@ -244,7 +226,7 @@ class GalleryController extends ActionController
     public function initializeCategoryAction()
     {
         if ($this->configurationInvalid) {
-            $this->arguments = $this->objectManager->get(Arguments::class);
+            $this->arguments = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Mvc\\Controller\\Arguments');
             return;
         }
         $this->setFileTypeConverterFor('image');
@@ -448,29 +430,6 @@ class GalleryController extends ActionController
      ******************************/
 
     /**
-     * @return bool
-     */
-    public function validateConfiguration()
-    {
-        $isValid = true;
-        if ($this->actionMethodName === 'listAction' || $this->actionMethodName === 'categoryAction') {
-            if (!isset($this->settings['default']['folder'])
-                || count(explode(':', $this->settings['default']['folder'])) !== 3
-            ) {
-                $this->errorMessageArray['current'] = 11;
-                $isValid = false;
-            }
-        }
-        if ($this->actionMethodName === 'showAction') {
-            if (empty($this->settings['default']['image'])) {
-                $this->errorMessageArray['current'] = 10;
-                $isValid = false;
-            }
-        }
-        return $isValid;
-    }
-
-    /**
      * Set the storage and folder to use for the Plugins
      *
      * @throws \Exception
@@ -479,9 +438,8 @@ class GalleryController extends ActionController
      */
     protected function resolveStorageInformation()
     {
-        $selectedFolderParts = explode(':', $this->settings['default']['folder']);
-        $this->selectedStorage = $this->storageRepository->findByUid($selectedFolderParts[1]);
-        $this->selectedFolder = $this->selectedStorage->getFolder($selectedFolderParts[2]);
+        $this->selectedFolder = $this->resourceResolver->resolveResource($this->settings['default']['folder']);
+        $this->selectedStorage = $this->resourceResolver->resolveStorage($this->settings['default']['folder']);
     }
 
     /**
@@ -537,7 +495,7 @@ class GalleryController extends ActionController
     protected function getErrorMessageForActionName($actionName)
     {
         return sprintf(
-            $this->configErrorMessage,
+            'The FAL Gallery Plugin configuration is not correct. Check the %s Plugin config. Error: "%s"',
             $actionName,
             $this->errorMessageArray[$this->errorMessageArray['current']]
         );
