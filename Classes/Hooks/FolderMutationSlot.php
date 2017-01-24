@@ -52,6 +52,8 @@ class FolderMutationSlot implements \TYPO3\CMS\Core\SingletonInterface
      * @param object $parameters Parameters
      *
      * @return void
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function postFolderMutation(Folder $folder, $some = null, $other = null, $parameters = null)
     {
@@ -67,6 +69,8 @@ class FolderMutationSlot implements \TYPO3\CMS\Core\SingletonInterface
      * @param Folder $originalFolder The original folder
      *
      * @return void
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function postFolderMove(Folder $folder, Folder $targetFolder, $newName, Folder $originalFolder)
     {
@@ -81,6 +85,8 @@ class FolderMutationSlot implements \TYPO3\CMS\Core\SingletonInterface
      * @param string $newName The new name
      *
      * @return void
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function postFolderRename(Folder $folder, $newName)
     {

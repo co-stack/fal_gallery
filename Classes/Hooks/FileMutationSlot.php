@@ -47,6 +47,8 @@ class FileMutationSlot implements SingletonInterface
      * @param Folder $folder The folder
      *
      * @return void
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function postFileAdd(FileInterface $file, Folder $folder)
     {
@@ -60,6 +62,8 @@ class FileMutationSlot implements SingletonInterface
      * @param Folder $folder The folder
      *
      * @return void
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function postFileCopy(FileInterface $file, Folder $folder)
     {
@@ -90,6 +94,8 @@ class FileMutationSlot implements SingletonInterface
      * @param Folder $originalFolder The folder
      *
      * @return void
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function postFileMove(FileInterface $file, Folder $targetFolder, Folder $originalFolder)
     {
@@ -104,6 +110,8 @@ class FileMutationSlot implements SingletonInterface
      * @param string $targetFolder
      *
      * @return void
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function postFileRename(FileInterface $file, $targetFolder)
     {

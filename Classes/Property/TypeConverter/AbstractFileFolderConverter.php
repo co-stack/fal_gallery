@@ -32,6 +32,10 @@ abstract class AbstractFileFolderConverter extends \TYPO3\CMS\Extbase\Property\T
      * @param PropertyMappingConfigurationInterface $configuration
      * @return AbstractFileFolder|void
      * @throws Exception
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
+     * @SuppressWarnings(PHPMD.LongVariable)
+     *
      */
     public function convertFrom(
         $source,
