@@ -16,7 +16,7 @@ namespace In2code\FalGallery\Property\TypeConverter;
  * The TYPO3 project - inspiring people to share!
  */
 
-use TYPO3\CMS\Extbase\Domain\Model\AbstractFileFolder;
+use TYPO3\CMS\Core\Resource\ResourceInterface;
 use TYPO3\CMS\Extbase\Property\Exception;
 use TYPO3\CMS\Extbase\Property\PropertyMappingConfigurationInterface;
 
@@ -30,12 +30,11 @@ abstract class AbstractFileFolderConverter extends \TYPO3\CMS\Extbase\Property\T
      * @param string $targetType
      * @param array $convertedChildProperties
      * @param PropertyMappingConfigurationInterface $configuration
-     * @return AbstractFileFolder|void
+     * @return ResourceInterface
      * @throws Exception
      *
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      * @SuppressWarnings(PHPMD.LongVariable)
-     *
      */
     public function convertFrom(
         $source,
@@ -46,7 +45,8 @@ abstract class AbstractFileFolderConverter extends \TYPO3\CMS\Extbase\Property\T
         $object = $this->getOriginalResource($source);
         if (empty($this->expectedObjectType) || !$object instanceof $this->expectedObjectType) {
             throw new Exception(
-                'Expected object of type "' . $this->expectedObjectType . '" but got ' . get_class($object), 1342895975
+                'Expected object of type "' . $this->expectedObjectType . '" but got ' . get_class($object),
+                1342895975
             );
         }
         return $object;

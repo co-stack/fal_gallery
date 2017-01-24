@@ -79,7 +79,8 @@ class GalleryController extends ActionController
     /**
      * @var string
      */
-    protected $configurationErrorMessage = 'The FAL Gallery Plugin configuration is not correct. Check the %s Plugin config. Error: "%s"';
+    protected $configurationErrorMessage = 'The FAL Gallery Plugin configuration is not correct.'
+                                           . ' Check the %s Plugin config. Error: "%s"';
 
     /**
      * @var array
@@ -131,7 +132,7 @@ class GalleryController extends ActionController
 
     /**
      * @param File $image
-     * @return string
+     * @return string|null
      */
     public function showAction(File $image = null)
     {
@@ -154,6 +155,7 @@ class GalleryController extends ActionController
                 unlink($localCopy);
             }
         }
+        return null;
     }
 
     /**
@@ -178,7 +180,7 @@ class GalleryController extends ActionController
      * @param File $categoryFolder
      * @param int $listPage
      * @param int $categoryPage
-     * @return string
+     * @return string|null
      */
     public function listAction(
         File $image = null,
@@ -211,12 +213,12 @@ class GalleryController extends ActionController
         $this->assignPaginationParams($itemsToPaginate, $listPage);
 
         if ($this->settings['list']['useLightBox']) {
-            /** @var \TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer $contentObjectRenderer */
-            $contentObjectRenderer = $this->configurationManager->getContentObject();
+            /** @var \TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer $cObj */
+            $cObj = $this->configurationManager->getContentObject();
             // lightbox rel attribute is taken from global constants, see typoscript setup
             $this->view->assign(
                 'lightboxRelAttribute',
-                $contentObjectRenderer->cObjGetSingle(
+                $cObj->cObjGetSingle(
                     $this->settings['lightboxRelAttribute']['_typoScriptNodeValue'],
                     $this->settings['lightboxRelAttribute']
                 )
@@ -225,6 +227,7 @@ class GalleryController extends ActionController
 
         // maxImageWidth is taken from tt_content, see typoscript setup
         $this->view->assign('maxImageWidth', $this->settings['maxImageWidth']['_typoScriptNodeValue']);
+        return null;
     }
 
     /**
@@ -253,7 +256,7 @@ class GalleryController extends ActionController
      * @param File $categoryFolder
      * @param int $categoryPage
      * @param int $listPage
-     * @return string
+     * @return string|null
      */
     public function categoryAction(
         File $image = null,
@@ -292,6 +295,7 @@ class GalleryController extends ActionController
         }
 
         $this->assignPaginationParams($itemsToPaginate, $categoryPage);
+        return null;
     }
 
     /*******************************
@@ -369,9 +373,9 @@ class GalleryController extends ActionController
      */
     protected function folderIsInsideSelectedStorage(Folder $parentFolder)
     {
-        $parentFolderIdentifier = $parentFolder->getIdentifier();
-        $selectedFolderIdentifier = $this->selectedFolder->getIdentifier();
-        if (substr($parentFolderIdentifier, 0, strlen($selectedFolderIdentifier)) === $selectedFolderIdentifier) {
+        $parentFolderId = $parentFolder->getIdentifier();
+        $selectedFolderId = $this->selectedFolder->getIdentifier();
+        if (substr($parentFolderId, 0, strlen($selectedFolderId)) === $selectedFolderId) {
             return true;
         }
         return false;
@@ -482,8 +486,8 @@ class GalleryController extends ActionController
         if (!empty($this->settings['images']['extension'])) {
             $this->imageFileExtensions = $this->settings['images']['extension'];
         } else {
-            if (!empty($GLOBALS['TYPO3_CONF_VARS']['GFX']['imagefile_ext'])) {
-                $this->imageFileExtensions = $GLOBALS['TYPO3_CONF_VARS']['GFX']['imagefile_ext'];
+            if ($this->hasImageFileExt()) {
+                $this->imageFileExtensions = $this->getImageFileExt();
             } else {
                 $this->imageFileExtensions = 'jpg,png,gif,bmp';
             }
@@ -529,5 +533,25 @@ class GalleryController extends ActionController
             $actionName,
             $this->errorMessageArray[$this->errorMessageArray['current']]
         );
+    }
+
+    /**
+     * @return array
+     *
+     * @SuppressWarnings(PHPMD.Superglobals)
+     */
+    protected function getImageFileExt()
+    {
+        return $GLOBALS['TYPO3_CONF_VARS']['GFX']['imagefile_ext'];
+    }
+
+    /**
+     * @return bool
+     *
+     * @SuppressWarnings(PHPMD.Superglobals)
+     */
+    protected function hasImageFileExt()
+    {
+        return !empty($GLOBALS['TYPO3_CONF_VARS']['GFX']['imagefile_ext']);
     }
 }

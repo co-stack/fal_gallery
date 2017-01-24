@@ -32,14 +32,12 @@ class UnderscoreToSpaceViewHelper extends AbstractViewHelper
      */
     public function render($value = null)
     {
-
         if ($value === null) {
             $value = $this->renderChildren();
             if ($value === null) {
                 return '';
             }
         }
-
         return str_replace('_', ' ', $value);
     }
 }

@@ -10,4 +10,3 @@ $GLOBALS['TCA']['tt_content']['types']['list']['subtypes_addlist']['falgallery_p
     'falgallery_pi1',
     'FILE:EXT:fal_gallery/Configuration/FlexForms/flexform_pi1.xml'
 );
-

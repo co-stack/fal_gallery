@@ -19,6 +19,7 @@ namespace In2code\FalGallery\Hooks;
 use TYPO3\CMS\Core\Database\DatabaseConnection;
 use TYPO3\CMS\Core\Resource\FileInterface;
 use TYPO3\CMS\Core\Resource\Folder;
+use TYPO3\CMS\Core\Resource\FolderInterface;
 use TYPO3\CMS\Core\SingletonInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
@@ -45,7 +46,6 @@ class FileMutationSlot implements SingletonInterface
      *
      * @param FileInterface $file The file
      * @param Folder $folder The folder
-     *
      * @return void
      *
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
@@ -60,7 +60,6 @@ class FileMutationSlot implements SingletonInterface
      *
      * @param FileInterface $file The file
      * @param Folder $folder The folder
-     *
      * @return void
      *
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
@@ -75,7 +74,6 @@ class FileMutationSlot implements SingletonInterface
      *
      * @param string $newFileIdentifier The created file name
      * @param Folder $targetFolder The folder the file was placed into
-     *
      * @return void
      *
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
@@ -92,7 +90,6 @@ class FileMutationSlot implements SingletonInterface
      * @param FileInterface $file The file
      * @param Folder $targetFolder The folder
      * @param Folder $originalFolder The folder
-     *
      * @return void
      *
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
@@ -108,7 +105,6 @@ class FileMutationSlot implements SingletonInterface
      *
      * @param FileInterface $file The file
      * @param string $targetFolder
-     *
      * @return void
      *
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
@@ -122,7 +118,6 @@ class FileMutationSlot implements SingletonInterface
      * Post file replace
      *
      * @param FileInterface $file The file
-     *
      * @return void
      */
     public function postFileReplace(FileInterface $file)
@@ -134,7 +129,6 @@ class FileMutationSlot implements SingletonInterface
      * Pre file delete
      *
      * @param FileInterface $file The file
-     *
      * @return void
      */
     public function preFileDelete(FileInterface $file)
@@ -148,11 +142,10 @@ class FileMutationSlot implements SingletonInterface
      * This is done two levels deep to take care of folders created inside a
      * category.
      *
-     * @param Folder $folder The folder
-     *
+     * @param FolderInterface $folder The folder
      * @return void
      */
-    protected function flushCacheForAffectedPages(Folder $folder)
+    protected function flushCacheForAffectedPages(FolderInterface $folder)
     {
         $evaluate = $folder->getStorage()->getEvaluatePermissions();
         $folder->getStorage()->setEvaluatePermissions(false);
@@ -168,7 +161,6 @@ class FileMutationSlot implements SingletonInterface
      * Flush cache for given page ids
      *
      * @param array $pids An array of page ids
-     *
      * @return void
      */
     protected function flushCacheForPages(array $pids)
@@ -187,27 +179,31 @@ class FileMutationSlot implements SingletonInterface
      * active fal gallery content elements and checking if the current folder
      * is contained in the settings folder.
      *
-     * @param Folder $folder The folder to check
-     *
+     * @param FolderInterface $folder The folder to check
      * @return array
      */
-    protected function getAffectedPageIds(Folder $folder)
+    protected function getAffectedPageIds(FolderInterface $folder)
     {
         $pids = array();
 
         if ($folder->getStorage()->getDriverType() === 'Local') {
             $res = $this->databaseConnection->sql_query(
-                "
-				SELECT
-					pid,
-					ExtractValue(pi_flexform, '/T3FlexForms/data/sheet[@index=''list'']/language/field[@index=''settings.default.folder'']/value') as folder
+                "SELECT
+                  pid,
+				  ExtractValue(
+				    pi_flexform,
+				    '/T3FlexForms/data/sheet[@index=''list'']/language/field[@index=''settings.default.folder'']/value'
+				  ) as folder
 				FROM
-					tt_content
+				  tt_content
 				WHERE
-					list_type = 'falgallery_pi1'
-					AND deleted = 0
-					AND hidden = 0
-					AND ExtractValue(pi_flexform, '/T3FlexForms/data/sheet[@index=''list'']/language/field[@index=''settings.default.folder'']/value') LIKE 'file:"
+				  list_type = 'falgallery_pi1'
+				  AND deleted = 0
+				  AND hidden = 0
+				  AND ExtractValue(
+				    pi_flexform,
+				    '/T3FlexForms/data/sheet[@index=''list'']/language/field[@index=''settings.default.folder'']/value'
+				  ) LIKE 'file:"
                 . $folder->getCombinedIdentifier() . "%'"
             );
             while (($row = $this->databaseConnection->sql_fetch_assoc($res))) {

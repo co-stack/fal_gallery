@@ -17,12 +17,13 @@ namespace In2code\FalGallery\Hooks;
  */
 
 use TYPO3\CMS\Core\Resource\Folder;
+use TYPO3\CMS\Core\SingletonInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * Slots that pick up signals when a folder is created, changed or removed.
  */
-class FolderMutationSlot implements \TYPO3\CMS\Core\SingletonInterface
+class FolderMutationSlot implements SingletonInterface
 {
     /**
      * The database connection
@@ -50,7 +51,6 @@ class FolderMutationSlot implements \TYPO3\CMS\Core\SingletonInterface
      * @param object $some Some
      * @param object $other Other
      * @param object $parameters Parameters
-     *
      * @return void
      *
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
@@ -67,7 +67,6 @@ class FolderMutationSlot implements \TYPO3\CMS\Core\SingletonInterface
      * @param Folder $targetFolder The target folder
      * @param string $newName The new name
      * @param Folder $originalFolder The original folder
-     *
      * @return void
      *
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
@@ -83,7 +82,6 @@ class FolderMutationSlot implements \TYPO3\CMS\Core\SingletonInterface
      *
      * @param Folder $folder The folder
      * @param string $newName The new name
-     *
      * @return void
      *
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
@@ -100,7 +98,6 @@ class FolderMutationSlot implements \TYPO3\CMS\Core\SingletonInterface
      * category.
      *
      * @param Folder $folder The folder
-     *
      * @return void
      */
     protected function flushCacheForAffectedPages(Folder $folder)
@@ -119,7 +116,6 @@ class FolderMutationSlot implements \TYPO3\CMS\Core\SingletonInterface
      * Flush cache for given page ids
      *
      * @param array $pids An array of page ids
-     *
      * @return void
      */
     protected function flushCacheForPages(array $pids)
@@ -139,7 +135,6 @@ class FolderMutationSlot implements \TYPO3\CMS\Core\SingletonInterface
      * is contained in the settings folder.
      *
      * @param Folder $folder The folder to check
-     *
      * @return array
      */
     protected function getAffectedPageIds(Folder $folder)
@@ -148,17 +143,22 @@ class FolderMutationSlot implements \TYPO3\CMS\Core\SingletonInterface
 
         if ($folder->getStorage()->getDriverType() === 'Local') {
             $res = $this->databaseConnection->sql_query(
-                "
-				SELECT
-					pid,
-					ExtractValue(pi_flexform, '/T3FlexForms/data/sheet[@index=''list'']/language/field[@index=''settings.default.folder'']/value') as folder
+                "SELECT
+                  pid,
+                  ExtractValue(
+                    pi_flexform,
+                    '/T3FlexForms/data/sheet[@index=''list'']/language/field[@index=''settings.default.folder'']/value'
+                  ) as folder
 				FROM
-					tt_content
+				  tt_content
 				WHERE
-					list_type = 'falgallery_pi1'
-					AND deleted = 0
-					AND hidden = 0
-					AND ExtractValue(pi_flexform, '/T3FlexForms/data/sheet[@index=''list'']/language/field[@index=''settings.default.folder'']/value') LIKE 'file:"
+                  list_type = 'falgallery_pi1'
+                  AND deleted = 0
+                  AND hidden = 0
+                  AND ExtractValue(
+                    pi_flexform,
+                    '/T3FlexForms/data/sheet[@index=''list'']/language/field[@index=''settings.default.folder'']/value'
+                  ) LIKE 'file:"
                 . $folder->getCombinedIdentifier() . "%'"
             );
             while (($row = $this->databaseConnection->sql_fetch_assoc($res))) {
