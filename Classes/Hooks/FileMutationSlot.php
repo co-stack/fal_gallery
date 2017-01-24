@@ -47,7 +47,6 @@ class FileMutationSlot implements SingletonInterface
      * @param FileInterface $file The file
      * @param Folder $folder The folder
      * @return void
-     *
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function postFileAdd(FileInterface $file, Folder $folder)
@@ -61,7 +60,6 @@ class FileMutationSlot implements SingletonInterface
      * @param FileInterface $file The file
      * @param Folder $folder The folder
      * @return void
-     *
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function postFileCopy(FileInterface $file, Folder $folder)
@@ -72,12 +70,12 @@ class FileMutationSlot implements SingletonInterface
     /**
      * Post file create
      *
+     * @see \TYPO3\CMS\Core\Resource\ResourceStorage::createFile
+     *
      * @param string $newFileIdentifier The created file name
      * @param Folder $targetFolder The folder the file was placed into
      * @return void
-     *
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
-     * @see \TYPO3\CMS\Core\Resource\ResourceStorage::createFile
      */
     public function postFileCreate($newFileIdentifier, Folder $targetFolder)
     {
@@ -91,7 +89,6 @@ class FileMutationSlot implements SingletonInterface
      * @param Folder $targetFolder The folder
      * @param Folder $originalFolder The folder
      * @return void
-     *
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function postFileMove(FileInterface $file, Folder $targetFolder, Folder $originalFolder)
@@ -106,7 +103,6 @@ class FileMutationSlot implements SingletonInterface
      * @param FileInterface $file The file
      * @param string $targetFolder
      * @return void
-     *
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function postFileRename(FileInterface $file, $targetFolder)
@@ -221,7 +217,6 @@ class FileMutationSlot implements SingletonInterface
      * Set the database connection
      *
      * @return void
-     *
      * @SuppressWarnings(PHPMD.Superglobals)
      */
     private function setDatabaseConnection()

@@ -537,7 +537,6 @@ class GalleryController extends ActionController
 
     /**
      * @return array
-     *
      * @SuppressWarnings(PHPMD.Superglobals)
      */
     protected function getImageFileExt()
@@ -547,7 +546,6 @@ class GalleryController extends ActionController
 
     /**
      * @return bool
-     *
      * @SuppressWarnings(PHPMD.Superglobals)
      */
     protected function hasImageFileExt()

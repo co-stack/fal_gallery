@@ -52,7 +52,6 @@ class FolderMutationSlot implements SingletonInterface
      * @param object $other Other
      * @param object $parameters Parameters
      * @return void
-     *
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function postFolderMutation(Folder $folder, $some = null, $other = null, $parameters = null)
@@ -68,7 +67,6 @@ class FolderMutationSlot implements SingletonInterface
      * @param string $newName The new name
      * @param Folder $originalFolder The original folder
      * @return void
-     *
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function postFolderMove(Folder $folder, Folder $targetFolder, $newName, Folder $originalFolder)
@@ -83,7 +81,6 @@ class FolderMutationSlot implements SingletonInterface
      * @param Folder $folder The folder
      * @param string $newName The new name
      * @return void
-     *
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function postFolderRename(Folder $folder, $newName)
@@ -174,7 +171,6 @@ class FolderMutationSlot implements SingletonInterface
      * Set the database connection
      *
      * @return void
-     *
      * @SuppressWarnings(PHPMD.Superglobals)
      */
     private function setDatabaseConnection()
