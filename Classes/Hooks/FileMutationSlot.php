@@ -16,24 +16,24 @@ namespace In2code\FalGallery\Hooks;
  * The TYPO3 project - inspiring people to share!
  */
 
+use TYPO3\CMS\Core\Database\DatabaseConnection;
 use TYPO3\CMS\Core\Resource\FileInterface;
 use TYPO3\CMS\Core\Resource\Folder;
+use TYPO3\CMS\Core\SingletonInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * Slots that pick up signals when a folder is created, changed or removed.
  */
-class FileMutationSlot implements \TYPO3\CMS\Core\SingletonInterface
+class FileMutationSlot implements SingletonInterface
 {
     /**
-     * The database connection
-     *
-     * @var \TYPO3\CMS\Core\Database\DatabaseConnection
+     * @var DatabaseConnection
      */
     protected $databaseConnection;
 
     /**
-     * Construct
+     * FileMutationSlot constructor.
      */
     public function __construct()
     {
