@@ -14,6 +14,9 @@ if (!defined('TYPO3_MODE')) {
     )
 );
 
+$listTypeInfo = &$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['cms/layout/class.tx_cms_layout.php']['list_type_Info'];
+$listTypeInfo['falgallery_pi1'][1485254974] = 'In2code\\FalGallery\\Hooks\\PluginInformation->build';
+
 // Flush page caches of affected pages when files or folders change
 /** @var \TYPO3\CMS\Extbase\SignalSlot\Dispatcher $signalSlotDispatcher */
 $signalSlotDispatcher = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(
