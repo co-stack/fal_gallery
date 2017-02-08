@@ -316,6 +316,8 @@ class GalleryController extends ActionController
 
         $this->view->assignMultiple(
             array(
+                'allItems' => $allItems,
+
                 'numberOfImages' => $numberOfImages,
                 'numberOfPages' => $numberOfPages,
                 'itemsOnThisPage' => count($imagesToDisplay),
