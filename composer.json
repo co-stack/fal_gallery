@@ -9,6 +9,9 @@
             "email": "php@vxvr.de"
         }
     ],
+    "require": {
+        "typo3/cms": ">=6.2.0 <9.0"
+    },
     "autoload": {
         "psr-4": {
             "In2code\\FalGallery\\": "Classes/"
