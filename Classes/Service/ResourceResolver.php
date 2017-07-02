@@ -1,5 +1,5 @@
 <?php
-namespace In2code\FalGallery\Service;
+namespace VerteXVaaR\FalGallery\Service;
 
 /*
  * (c) Oliver Eglseder <php@vxvr.de>

@@ -1,5 +1,5 @@
 <?php
-namespace In2code\FalGallery\Property\TypeConverter;
+namespace VerteXVaaR\FalGallery\Property\TypeConverter;
 
 /*
  * (c) Oliver Eglseder <php@vxvr.de>

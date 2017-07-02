@@ -1,5 +1,5 @@
 <?php
-namespace In2code\FalGallery\ViewHelpers;
+namespace VerteXVaaR\FalGallery\ViewHelpers;
 
 /*
  * (c) 2015 Michiel Roos <michiel@maxserv.com>

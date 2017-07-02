@@ -1,5 +1,5 @@
 <?php
-namespace In2code\FalGallery\Hooks;
+namespace VerteXVaaR\FalGallery\Hooks;
 
 /*
  * (c) Oliver Eglseder <php@vxvr.de>

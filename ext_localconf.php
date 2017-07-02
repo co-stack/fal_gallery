@@ -4,7 +4,7 @@ if (!defined('TYPO3_MODE')) {
 }
 
 \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-    'In2code.' . $_EXTKEY,
+    'VerteXVaaR.FalGallery',
     'Pi1',
     array(
         'Gallery' => 'show, list, category',
@@ -15,7 +15,7 @@ if (!defined('TYPO3_MODE')) {
 );
 
 $listTypeInfo = &$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['cms/layout/class.tx_cms_layout.php']['list_type_Info'];
-$listTypeInfo['falgallery_pi1'][1485254974] = 'In2code\\FalGallery\\Hooks\\PluginInformation->build';
+$listTypeInfo['falgallery_pi1'][1485254974] = 'VerteXVaaR\\FalGallery\\Hooks\\PluginInformation->build';
 
 // Flush page caches of affected pages when files or folders change
 /** @var \TYPO3\CMS\Extbase\SignalSlot\Dispatcher $signalSlotDispatcher */
@@ -25,72 +25,72 @@ $signalSlotDispatcher = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(
 $signalSlotDispatcher->connect(
     'TYPO3\\CMS\\Core\\Resource\\ResourceStorage',
     \TYPO3\CMS\Core\Resource\ResourceStorageInterface::SIGNAL_PostFolderAdd,
-    'In2code\\FalGallery\\Hooks\\FolderMutationSlot',
+    'VerteXVaaR\\FalGallery\\Hooks\\FolderMutationSlot',
     'postFolderMutation'
 );
 $signalSlotDispatcher->connect(
     'TYPO3\\CMS\\Core\\Resource\\ResourceStorage',
     \TYPO3\CMS\Core\Resource\ResourceStorageInterface::SIGNAL_PostFolderCopy,
-    'In2code\\FalGallery\\Hooks\\FolderMutationSlot',
+    'VerteXVaaR\\FalGallery\\Hooks\\FolderMutationSlot',
     'postFolderMutation'
 );
 $signalSlotDispatcher->connect(
     'TYPO3\\CMS\\Core\\Resource\\ResourceStorage',
     \TYPO3\CMS\Core\Resource\ResourceStorageInterface::SIGNAL_PreFolderDelete,
-    'In2code\\FalGallery\\Hooks\\FolderMutationSlot',
+    'VerteXVaaR\\FalGallery\\Hooks\\FolderMutationSlot',
     'postFolderMutation'
 );
 $signalSlotDispatcher->connect(
     'TYPO3\\CMS\\Core\\Resource\\ResourceStorage',
     \TYPO3\CMS\Core\Resource\ResourceStorageInterface::SIGNAL_PostFolderMove,
-    'In2code\\FalGallery\\Hooks\\FolderMutationSlot',
+    'VerteXVaaR\\FalGallery\\Hooks\\FolderMutationSlot',
     'postFolderMove'
 );
 $signalSlotDispatcher->connect(
     'TYPO3\\CMS\\Core\\Resource\\ResourceStorage',
     \TYPO3\CMS\Core\Resource\ResourceStorageInterface::SIGNAL_PostFolderRename,
-    'In2code\\FalGallery\\Hooks\\FolderMutationSlot',
+    'VerteXVaaR\\FalGallery\\Hooks\\FolderMutationSlot',
     'postFolderRename'
 );
 $signalSlotDispatcher->connect(
     'TYPO3\\CMS\\Core\\Resource\\ResourceStorage',
     \TYPO3\CMS\Core\Resource\ResourceStorageInterface::SIGNAL_PostFileAdd,
-    'In2code\\FalGallery\\Hooks\\FileMutationSlot',
+    'VerteXVaaR\\FalGallery\\Hooks\\FileMutationSlot',
     'postFileAdd'
 );
 $signalSlotDispatcher->connect(
     'TYPO3\\CMS\\Core\\Resource\\ResourceStorage',
     \TYPO3\CMS\Core\Resource\ResourceStorageInterface::SIGNAL_PostFileCopy,
-    'In2code\\FalGallery\\Hooks\\FileMutationSlot',
+    'VerteXVaaR\\FalGallery\\Hooks\\FileMutationSlot',
     'postFileCopy'
 );
 $signalSlotDispatcher->connect(
     'TYPO3\\CMS\\Core\\Resource\\ResourceStorage',
     \TYPO3\CMS\Core\Resource\ResourceStorageInterface::SIGNAL_PostFileCreate,
-    'In2code\\FalGallery\\Hooks\\FileMutationSlot',
+    'VerteXVaaR\\FalGallery\\Hooks\\FileMutationSlot',
     'postFileCreate'
 );
 $signalSlotDispatcher->connect(
     'TYPO3\\CMS\\Core\\Resource\\ResourceStorage',
     \TYPO3\CMS\Core\Resource\ResourceStorageInterface::SIGNAL_PreFileDelete,
-    'In2code\\FalGallery\\Hooks\\FileMutationSlot',
+    'VerteXVaaR\\FalGallery\\Hooks\\FileMutationSlot',
     'preFileDelete'
 );
 $signalSlotDispatcher->connect(
     'TYPO3\\CMS\\Core\\Resource\\ResourceStorage',
     \TYPO3\CMS\Core\Resource\ResourceStorageInterface::SIGNAL_PostFileMove,
-    'In2code\\FalGallery\\Hooks\\FileMutationSlot',
+    'VerteXVaaR\\FalGallery\\Hooks\\FileMutationSlot',
     'postFileMove'
 );
 $signalSlotDispatcher->connect(
     'TYPO3\\CMS\\Core\\Resource\\ResourceStorage',
     \TYPO3\CMS\Core\Resource\ResourceStorageInterface::SIGNAL_PostFileRename,
-    'In2code\\FalGallery\\Hooks\\FileMutationSlot',
+    'VerteXVaaR\\FalGallery\\Hooks\\FileMutationSlot',
     'postFileRename'
 );
 $signalSlotDispatcher->connect(
     'TYPO3\\CMS\\Core\\Resource\\ResourceStorage',
     \TYPO3\CMS\Core\Resource\ResourceStorageInterface::SIGNAL_PostFileReplace,
-    'In2code\\FalGallery\\Hooks\\FileMutationSlot',
+    'VerteXVaaR\\FalGallery\\Hooks\\FileMutationSlot',
     'postFileReplace'
 );

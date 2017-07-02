@@ -1,5 +1,5 @@
 <?php
-namespace In2code\FalGallery\Controller;
+namespace VerteXVaaR\FalGallery\Controller;
 
 /*
  * (c) Oliver Eglseder <php@vxvr.de>
@@ -16,7 +16,7 @@ namespace In2code\FalGallery\Controller;
  * The TYPO3 project - inspiring people to share!
  */
 
-use In2code\FalGallery\Service\ResourceResolver;
+use VerteXVaaR\FalGallery\Service\ResourceResolver;
 use TYPO3\CMS\Core\Resource\File;
 use TYPO3\CMS\Core\Resource\Filter\FileExtensionFilter;
 use TYPO3\CMS\Core\Resource\Folder;
@@ -79,7 +79,7 @@ class GalleryController extends ActionController
     public function __construct()
     {
         parent::__construct();
-        $this->resourceResolver = GeneralUtility::makeInstance('In2code\\FalGallery\\Service\\ResourceResolver');
+        $this->resourceResolver = GeneralUtility::makeInstance('VerteXVaaR\\FalGallery\\Service\\ResourceResolver');
     }
 
     /**
@@ -352,7 +352,7 @@ class GalleryController extends ActionController
                 }
             }
             /** @var FileConverter $fileConverter */
-            $fileConverter = $this->objectManager->get('In2code\\FalGallery\\Property\\TypeConverter\\FileConverter');
+            $fileConverter = $this->objectManager->get('VerteXVaaR\\FalGallery\\Property\\TypeConverter\\FileConverter');
             $this->arguments->getArgument($argumentName)->getPropertyMappingConfiguration()->setTypeConverter(
                 $fileConverter
             );

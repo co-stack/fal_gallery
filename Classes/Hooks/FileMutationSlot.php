@@ -1,5 +1,5 @@
 <?php
-namespace In2code\FalGallery\Hooks;
+namespace VerteXVaaR\FalGallery\Hooks;
 
 /*
  * (c) 2015 Michiel Roos <michiel@maxserv.com>
