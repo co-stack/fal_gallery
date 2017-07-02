@@ -16,6 +16,7 @@ namespace VerteXVaaR\FalGallery\Hooks;
  * The TYPO3 project - inspiring people to share!
  */
 
+use TYPO3\CMS\Core\Cache\CacheManager;
 use TYPO3\CMS\Core\Database\DatabaseConnection;
 use TYPO3\CMS\Core\Resource\FileInterface;
 use TYPO3\CMS\Core\Resource\Folder;
@@ -46,7 +47,9 @@ class FileMutationSlot implements SingletonInterface
      *
      * @param FileInterface $file The file
      * @param Folder $folder The folder
+     *
      * @return void
+     *
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function postFileAdd(FileInterface $file, Folder $folder)
@@ -59,7 +62,9 @@ class FileMutationSlot implements SingletonInterface
      *
      * @param FileInterface $file The file
      * @param Folder $folder The folder
+     *
      * @return void
+     *
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function postFileCopy(FileInterface $file, Folder $folder)
@@ -74,7 +79,9 @@ class FileMutationSlot implements SingletonInterface
      *
      * @param string $newFileIdentifier The created file name
      * @param Folder $targetFolder The folder the file was placed into
+     *
      * @return void
+     *
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function postFileCreate($newFileIdentifier, Folder $targetFolder)
@@ -88,7 +95,9 @@ class FileMutationSlot implements SingletonInterface
      * @param FileInterface $file The file
      * @param Folder $targetFolder The folder
      * @param Folder $originalFolder The folder
+     *
      * @return void
+     *
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function postFileMove(FileInterface $file, Folder $targetFolder, Folder $originalFolder)
@@ -102,7 +111,9 @@ class FileMutationSlot implements SingletonInterface
      *
      * @param FileInterface $file The file
      * @param string $targetFolder
+     *
      * @return void
+     *
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function postFileRename(FileInterface $file, $targetFolder)
@@ -114,6 +125,7 @@ class FileMutationSlot implements SingletonInterface
      * Post file replace
      *
      * @param FileInterface $file The file
+     *
      * @return void
      */
     public function postFileReplace(FileInterface $file)
@@ -125,6 +137,7 @@ class FileMutationSlot implements SingletonInterface
      * Pre file delete
      *
      * @param FileInterface $file The file
+     *
      * @return void
      */
     public function preFileDelete(FileInterface $file)
@@ -139,6 +152,7 @@ class FileMutationSlot implements SingletonInterface
      * category.
      *
      * @param FolderInterface $folder The folder
+     *
      * @return void
      */
     protected function flushCacheForAffectedPages(FolderInterface $folder)
@@ -157,13 +171,14 @@ class FileMutationSlot implements SingletonInterface
      * Flush cache for given page ids
      *
      * @param array $pids An array of page ids
+     *
      * @return void
      */
     protected function flushCacheForPages(array $pids)
     {
         if (count($pids)) {
             /** @var \TYPO3\CMS\Core\Cache\CacheManager $cacheManager */
-            $cacheManager = GeneralUtility::makeInstance('TYPO3\\CMS\\Core\\Cache\\CacheManager');
+            $cacheManager = GeneralUtility::makeInstance(CacheManager::class);
             foreach ($pids as $pid) {
                 $cacheManager->flushCachesByTag('pageId_' . $pid);
             }
@@ -176,11 +191,12 @@ class FileMutationSlot implements SingletonInterface
      * is contained in the settings folder.
      *
      * @param FolderInterface $folder The folder to check
+     *
      * @return array
      */
     protected function getAffectedPageIds(FolderInterface $folder)
     {
-        $pids = array();
+        $pids = [];
 
         if ($folder instanceof Folder) {
             if ($folder->getStorage()->getDriverType() === 'Local') {
@@ -217,6 +233,7 @@ class FileMutationSlot implements SingletonInterface
      * Set the database connection
      *
      * @return void
+     *
      * @SuppressWarnings(PHPMD.Superglobals)
      */
     private function setDatabaseConnection()

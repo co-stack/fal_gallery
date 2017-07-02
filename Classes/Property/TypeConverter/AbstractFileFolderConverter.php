@@ -30,15 +30,17 @@ abstract class AbstractFileFolderConverter extends \TYPO3\CMS\Extbase\Property\T
      * @param string $targetType
      * @param array $convertedChildProperties
      * @param PropertyMappingConfigurationInterface $configuration
+     *
      * @return ResourceInterface
      * @throws Exception
+     *
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      * @SuppressWarnings(PHPMD.LongVariable)
      */
     public function convertFrom(
         $source,
         $targetType,
-        array $convertedChildProperties = array(),
+        array $convertedChildProperties = [],
         PropertyMappingConfigurationInterface $configuration = null
     ) {
         $object = $this->getOriginalResource($source);

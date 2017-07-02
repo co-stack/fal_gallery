@@ -36,12 +36,13 @@ class PluginInformation
      */
     public function __construct()
     {
-        $this->flexFormService = GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Service\\FlexFormService');
+        $this->flexFormService = GeneralUtility::makeInstance(FlexFormService::class);
     }
 
     /**
      * @param array $contentElement
      * @param PageLayoutView $pageLayoutView
+     *
      * @return string
      */
     public function build(array $contentElement, PageLayoutView $pageLayoutView)

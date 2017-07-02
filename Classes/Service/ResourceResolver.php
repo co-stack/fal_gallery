@@ -16,6 +16,7 @@ namespace VerteXVaaR\FalGallery\Service;
  * The TYPO3 project - inspiring people to share!
  */
 
+use TYPO3\CMS\Core\LinkHandling\LinkService;
 use TYPO3\CMS\Core\Resource\ResourceFactory;
 use TYPO3\CMS\Core\Resource\ResourceStorage;
 use TYPO3\CMS\Core\SingletonInterface;
@@ -27,14 +28,14 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 class ResourceResolver implements SingletonInterface
 {
     /**
-     * @var ResourceResolver|\TYPO3\CMS\Core\LinkHandling\LinkService
+     * @var ResourceResolver|LinkService
      */
     protected $resolver = null;
 
     /**
      * @var array
      */
-    protected $resolved = array();
+    protected $resolved = [];
 
     /**
      * ResourceResolver constructor.
@@ -45,13 +46,14 @@ class ResourceResolver implements SingletonInterface
         if (1 === version_compare('8.3', TYPO3_branch)) {
             $this->resolver = $this;
         } else {
-            $this->resolver = GeneralUtility::makeInstance('TYPO3\\CMS\\Core\\LinkHandling\\LinkService');
+            $this->resolver = GeneralUtility::makeInstance(LinkService::class);
         }
     }
 
     /**
      * @param array $parameter
      * @param string $action
+     *
      * @return bool
      */
     public function isValid($parameter, $action)
@@ -61,7 +63,7 @@ class ResourceResolver implements SingletonInterface
         }
         if ('showAction' === $action) {
             $parameterKey = 'image';
-        } elseif (in_array($action, array('listAction', 'categoryAction'), true)) {
+        } elseif (in_array($action, ['listAction', 'categoryAction'], true)) {
             $parameterKey = 'folder';
         } else {
             return false;
@@ -73,7 +75,7 @@ class ResourceResolver implements SingletonInterface
         } else {
             $parts = explode(':', $value);
             if (count($parts) >= 2 && 'file' === $parts[0] && is_numeric($parts[1])) {
-                if (in_array($action, array('listAction', 'categoryAction'), true)) {
+                if (in_array($action, ['listAction', 'categoryAction'], true)) {
                     return !empty($parts[2]);
                 }
                 return true;
@@ -85,6 +87,7 @@ class ResourceResolver implements SingletonInterface
 
     /**
      * @param string $linkParameter
+     *
      * @return array
      */
     public function resolveResource($linkParameter)
@@ -95,6 +98,7 @@ class ResourceResolver implements SingletonInterface
 
     /**
      * @param string $linkParameter
+     *
      * @return ResourceStorage
      */
     public function resolveStorage($linkParameter)
@@ -115,13 +119,14 @@ class ResourceResolver implements SingletonInterface
      * This resembles the original method used in former versions of fal_gallery.
      *
      * @param string $parameter
+     *
      * @return array
      */
     protected function resolve($parameter)
     {
-        return array(
+        return [
             'file' => ResourceFactory::getInstance()->retrieveFileOrFolderObject($parameter),
             'type' => 'file',
-        );
+        ];
     }
 }

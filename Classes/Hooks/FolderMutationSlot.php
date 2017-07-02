@@ -16,6 +16,7 @@ namespace VerteXVaaR\FalGallery\Hooks;
  * The TYPO3 project - inspiring people to share!
  */
 
+use TYPO3\CMS\Core\Cache\CacheManager;
 use TYPO3\CMS\Core\Resource\Folder;
 use TYPO3\CMS\Core\SingletonInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -51,7 +52,9 @@ class FolderMutationSlot implements SingletonInterface
      * @param object $some Some
      * @param object $other Other
      * @param object $parameters Parameters
+     *
      * @return void
+     *
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function postFolderMutation(Folder $folder, $some = null, $other = null, $parameters = null)
@@ -66,7 +69,9 @@ class FolderMutationSlot implements SingletonInterface
      * @param Folder $targetFolder The target folder
      * @param string $newName The new name
      * @param Folder $originalFolder The original folder
+     *
      * @return void
+     *
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function postFolderMove(Folder $folder, Folder $targetFolder, $newName, Folder $originalFolder)
@@ -80,7 +85,9 @@ class FolderMutationSlot implements SingletonInterface
      *
      * @param Folder $folder The folder
      * @param string $newName The new name
+     *
      * @return void
+     *
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function postFolderRename(Folder $folder, $newName)
@@ -95,6 +102,7 @@ class FolderMutationSlot implements SingletonInterface
      * category.
      *
      * @param Folder $folder The folder
+     *
      * @return void
      */
     protected function flushCacheForAffectedPages(Folder $folder)
@@ -113,13 +121,14 @@ class FolderMutationSlot implements SingletonInterface
      * Flush cache for given page ids
      *
      * @param array $pids An array of page ids
+     *
      * @return void
      */
     protected function flushCacheForPages(array $pids)
     {
         if (count($pids)) {
             /** @var \TYPO3\CMS\Core\Cache\CacheManager $cacheManager */
-            $cacheManager = GeneralUtility::makeInstance('TYPO3\\CMS\\Core\\Cache\\CacheManager');
+            $cacheManager = GeneralUtility::makeInstance(CacheManager::class);
             foreach ($pids as $pid) {
                 $cacheManager->flushCachesByTag('pageId_' . $pid);
             }
@@ -132,11 +141,12 @@ class FolderMutationSlot implements SingletonInterface
      * is contained in the settings folder.
      *
      * @param Folder $folder The folder to check
+     *
      * @return array
      */
     protected function getAffectedPageIds(Folder $folder)
     {
-        $pids = array();
+        $pids = [];
 
         if ($folder->getStorage()->getDriverType() === 'Local') {
             $res = $this->databaseConnection->sql_query(
@@ -171,6 +181,7 @@ class FolderMutationSlot implements SingletonInterface
      * Set the database connection
      *
      * @return void
+     *
      * @SuppressWarnings(PHPMD.Superglobals)
      */
     private function setDatabaseConnection()

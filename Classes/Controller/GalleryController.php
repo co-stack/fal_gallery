@@ -16,14 +16,15 @@ namespace VerteXVaaR\FalGallery\Controller;
  * The TYPO3 project - inspiring people to share!
  */
 
-use VerteXVaaR\FalGallery\Service\ResourceResolver;
 use TYPO3\CMS\Core\Resource\File;
 use TYPO3\CMS\Core\Resource\Filter\FileExtensionFilter;
 use TYPO3\CMS\Core\Resource\Folder;
 use TYPO3\CMS\Core\Resource\ResourceStorage;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
+use TYPO3\CMS\Extbase\Mvc\Controller\Arguments;
 use TYPO3\CMS\Extbase\Property\TypeConverter\FileConverter;
+use VerteXVaaR\FalGallery\Service\ResourceResolver;
 
 /**
  * INFO: Storage must not change between Plugins
@@ -65,13 +66,13 @@ class GalleryController extends ActionController
     /**
      * @var array
      */
-    protected $errorMessageArray = array(
+    protected $errorMessageArray = [
         'current' => 0,
         0 => 'Unknown Error',
         10 => 'It seems you forgot to specify a default Image',
         11 => 'You might have forgot to configure a folder to display',
         12 => 'The called action was not recognized',
-    );
+    ];
 
     /**
      * GalleryController constructor.
@@ -79,7 +80,7 @@ class GalleryController extends ActionController
     public function __construct()
     {
         parent::__construct();
-        $this->resourceResolver = GeneralUtility::makeInstance('VerteXVaaR\\FalGallery\\Service\\ResourceResolver');
+        $this->resourceResolver = GeneralUtility::makeInstance(ResourceResolver::class);
     }
 
     /**
@@ -114,7 +115,7 @@ class GalleryController extends ActionController
     public function initializeShowAction()
     {
         if ($this->configurationInvalid) {
-            $this->arguments = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Mvc\\Controller\\Arguments');
+            $this->arguments = $this->objectManager->get(Arguments::class);
             return;
         }
         $this->setFileTypeConverterFor('image');
@@ -122,6 +123,7 @@ class GalleryController extends ActionController
 
     /**
      * @param File $image
+     *
      * @return string|null
      */
     public function showAction(File $image = null)
@@ -154,7 +156,7 @@ class GalleryController extends ActionController
     public function initializeListAction()
     {
         if ($this->configurationInvalid) {
-            $this->arguments = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Mvc\\Controller\\Arguments');
+            $this->arguments = $this->objectManager->get(Arguments::class);
             return;
         }
         $this->setFileTypeConverterFor('image');
@@ -170,6 +172,7 @@ class GalleryController extends ActionController
      * @param File $categoryFolder
      * @param int $listPage
      * @param int $categoryPage
+     *
      * @return string|null
      */
     public function listAction(
@@ -226,7 +229,7 @@ class GalleryController extends ActionController
     public function initializeCategoryAction()
     {
         if ($this->configurationInvalid) {
-            $this->arguments = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Mvc\\Controller\\Arguments');
+            $this->arguments = $this->objectManager->get(Arguments::class);
             return;
         }
         $this->setFileTypeConverterFor('image');
@@ -246,6 +249,7 @@ class GalleryController extends ActionController
      * @param File $categoryFolder
      * @param int $categoryPage
      * @param int $listPage
+     *
      * @return string|null
      */
     public function categoryAction(
@@ -297,6 +301,7 @@ class GalleryController extends ActionController
     /**
      * @param array $allItems All items that should be paginated
      * @param int $currentPage The page which should be displayed
+     *
      * @return void
      */
     protected function assignPaginationParams(array $allItems, $currentPage)
@@ -315,7 +320,7 @@ class GalleryController extends ActionController
         $imagesToDisplay = array_slice($allItems, $offset, $imagesPerPage, true);
 
         $this->view->assignMultiple(
-            array(
+            [
                 'allItems' => $allItems,
 
                 'numberOfImages' => $numberOfImages,
@@ -332,12 +337,13 @@ class GalleryController extends ActionController
                 'currentPage' => $currentPage,
                 'nextPage' => $currentPage + 1,
                 'previousPage' => $currentPage - 1,
-            )
+            ]
         );
     }
 
     /**
      * @param $argumentName
+     *
      * @throws \TYPO3\CMS\Extbase\Mvc\Exception\InvalidArgumentNameException
      * @throws \TYPO3\CMS\Extbase\Mvc\Exception\NoSuchArgumentException
      * @return void
@@ -352,7 +358,9 @@ class GalleryController extends ActionController
                 }
             }
             /** @var FileConverter $fileConverter */
-            $fileConverter = $this->objectManager->get('VerteXVaaR\\FalGallery\\Property\\TypeConverter\\FileConverter');
+            $fileConverter = $this->objectManager->get(
+                \VerteXVaaR\FalGallery\Property\TypeConverter\FileConverter::class
+            );
             $this->arguments->getArgument($argumentName)->getPropertyMappingConfiguration()->setTypeConverter(
                 $fileConverter
             );
@@ -361,6 +369,7 @@ class GalleryController extends ActionController
 
     /**
      * @param Folder $parentFolder
+     *
      * @return bool
      */
     protected function folderIsInsideSelectedStorage(Folder $parentFolder)
@@ -375,6 +384,7 @@ class GalleryController extends ActionController
 
     /**
      * @param Folder $folder
+     *
      * @return File
      */
     protected function getFolderImage(Folder $folder)
@@ -389,31 +399,33 @@ class GalleryController extends ActionController
 
     /**
      * @param Folder $folder
+     *
      * @return array
      */
     protected function getSubFoldersWithImage(Folder $folder)
     {
         $allFoldersInFolder = $folder->getSubfolders();
-        $foldersToDisplay = array();
+        $foldersToDisplay = [];
         /** @var Folder $folder */
         foreach ($allFoldersInFolder as $identifier => $folder) {
             $folderImage = $this->getFolderImage($folder);
-            $foldersToDisplay[$identifier] = array(
+            $foldersToDisplay[$identifier] = [
                 'folder' => $folder,
                 'folderImage' => $folderImage,
-            );
+            ];
         }
         return $foldersToDisplay;
     }
 
     /**
      * @param $imagesToDisplay
+     *
      * @return array
      */
     protected function getImageGrid($imagesToDisplay)
     {
         // ImageGrid[row][column] = image
-        $imagesGrid = array();
+        $imagesGrid = [];
         for ($i = 0; $i < $this->settings['rows']; $i++) {
             for ($j = 0; $j < $this->settings['cols']; $j++) {
                 if (count($imagesToDisplay) < 1) {
@@ -468,15 +480,13 @@ class GalleryController extends ActionController
     protected function setFileExtensionFilter()
     {
         // Don't inject the filter, because it's a prototype
-        $this->fileExtensionFilter = $this->objectManager->get(
-            'TYPO3\\CMS\\Core\\Resource\\Filter\\FileExtensionFilter'
-        );
+        $this->fileExtensionFilter = $this->objectManager->get(FileExtensionFilter::class);
         $this->fileExtensionFilter->setAllowedFileExtensions($this->imageFileExtensions);
         $this->selectedStorage->addFileAndFolderNameFilter(
-            array(
+            [
                 $this->fileExtensionFilter,
                 'filterFileList',
-            )
+            ]
         );
     }
 
@@ -492,6 +502,7 @@ class GalleryController extends ActionController
 
     /**
      * @param $actionName
+     *
      * @return string
      */
     protected function getErrorMessageForActionName($actionName)
@@ -505,6 +516,7 @@ class GalleryController extends ActionController
 
     /**
      * @return array
+     *
      * @SuppressWarnings(PHPMD.Superglobals)
      */
     protected function getImageFileExt()
@@ -514,6 +526,7 @@ class GalleryController extends ActionController
 
     /**
      * @return bool
+     *
      * @SuppressWarnings(PHPMD.Superglobals)
      */
     protected function hasImageFileExt()

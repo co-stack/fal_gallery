@@ -35,11 +35,11 @@
 		</main>
 		<show>
 			<ROOT>
-			<TCEforms>
-				<sheetTitle>Show Settings</sheetTitle>
-				<displayCond><![CDATA[FIELD:main.switchableControllerActions:=:Gallery->show;]]></displayCond>
-			</TCEforms>
-			<type>array</type>
+				<TCEforms>
+					<sheetTitle>Show Settings</sheetTitle>
+					<displayCond><![CDATA[FIELD:main.switchableControllerActions:=:Gallery->show;]]></displayCond>
+				</TCEforms>
+				<type>array</type>
 				<el>
 					<settings.default.image>
 						<TCEforms>
@@ -113,7 +113,7 @@
 											</urlParameters>
 										</module>
 										<params type="array">
-											<JSopenParams>height=300,width=500,status=0,menubar=0,scrollbars=1</JSopenParams>
+											<JSopenParams xml:space="preserve">height=300,width=500,status=0,menubar=0,scrollbars=1</JSopenParams>
 											<blindLinkFields>params,class</blindLinkFields>
 											<blindLinkOptions>page,mail,spec,file,url</blindLinkOptions>
 										</params>
@@ -163,7 +163,7 @@
 											</urlParameters>
 										</module>
 										<params type="array">
-											<JSopenParams>height=300,width=500,status=0,menubar=0,scrollbars=1</JSopenParams>
+											<JSopenParams xml:space="preserve">height=300,width=500,status=0,menubar=0,scrollbars=1</JSopenParams>
 											<blindLinkFields>params,class</blindLinkFields>
 											<blindLinkOptions>page,mail,spec,file,url</blindLinkOptions>
 										</params>
@@ -259,7 +259,7 @@
 					</settings.cols>
 					<settings.extension>
 						<TCEforms>
-							<label>Supported Images extension. If none selected $GLOBALS['TYPO3_CONF_VARS']['GFX']['imagefile_ext'] will be used</label>
+							<label xml:space="preserve">Supported Images extension. If none selected$GLOBALS['TYPO3_CONF_VARS']['GFX']['imagefile_ext'] will be used</label>
 							<config>
 								<type>select</type>
 								<items type="array">

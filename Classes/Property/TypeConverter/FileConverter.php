@@ -16,6 +16,7 @@ namespace VerteXVaaR\FalGallery\Property\TypeConverter;
  * The TYPO3 project - inspiring people to share!
  */
 
+use TYPO3\CMS\Core\Resource\File;
 use TYPO3\CMS\Core\Resource\FileInterface;
 use TYPO3\CMS\Core\Resource\Folder;
 use TYPO3\CMS\Core\SingletonInterface;
@@ -28,20 +29,21 @@ class FileConverter extends AbstractFileFolderConverter implements SingletonInte
     /**
      * @var array<string>
      */
-    protected $sourceTypes = array('integer', 'string');
+    protected $sourceTypes = ['integer', 'string'];
 
     /**
      * @var string
      */
-    protected $targetType = 'TYPO3\\CMS\\Core\\Resource\\File';
+    protected $targetType = File::class;
 
     /**
      * @var string
      */
-    protected $expectedObjectType = 'TYPO3\\CMS\\Core\\Resource\\File';
+    protected $expectedObjectType = File::class;
 
     /**
      * @param string|integer $source
+     *
      * @return FileInterface|Folder
      */
     protected function getOriginalResource($source)
