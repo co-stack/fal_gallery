@@ -28,7 +28,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 class ResourceResolver implements SingletonInterface
 {
     /**
-     * @var ResourceResolver|LinkService
+     * @var LinkService
      */
     protected $resolver = null;
 
@@ -42,12 +42,7 @@ class ResourceResolver implements SingletonInterface
      */
     public function __construct()
     {
-        // if the current version is lower than 8.3 LinkService is not available
-        if (1 === version_compare('8.3', TYPO3_branch)) {
-            $this->resolver = $this;
-        } else {
-            $this->resolver = GeneralUtility::makeInstance(LinkService::class);
-        }
+        $this->resolver = GeneralUtility::makeInstance(LinkService::class);
     }
 
     /**
@@ -72,14 +67,6 @@ class ResourceResolver implements SingletonInterface
 
         if (0 === strpos($value, 't3://')) {
             return (false !== ($urn = parse_url($value)) && isset($urn['scheme'], $urn['host'], $urn['query']));
-        } else {
-            $parts = explode(':', $value);
-            if (count($parts) >= 2 && 'file' === $parts[0] && is_numeric($parts[1])) {
-                if (in_array($action, ['listAction', 'categoryAction'], true)) {
-                    return !empty($parts[2]);
-                }
-                return true;
-            }
         }
 
         return false;
@@ -103,30 +90,8 @@ class ResourceResolver implements SingletonInterface
      */
     public function resolveStorage($linkParameter)
     {
-        if (0 === strpos($linkParameter, 't3://')) {
-            $urn = parse_url($linkParameter);
-            parse_str($urn['query'], $data);
-            $uid = $data['storage'];
-        } else {
-            $parts = explode(':', $linkParameter);
-            $uid = $parts[1];
-        }
-        return ResourceFactory::getInstance()->getStorageObject($uid);
-    }
-
-    /**
-     * Fallback method for TYPO3 < 8.3 where LinkService is not available.
-     * This resembles the original method used in former versions of fal_gallery.
-     *
-     * @param string $parameter
-     *
-     * @return array
-     */
-    protected function resolve($parameter)
-    {
-        return [
-            'file' => ResourceFactory::getInstance()->retrieveFileOrFolderObject($parameter),
-            'type' => 'file',
-        ];
+        $urn = parse_url($linkParameter);
+        parse_str($urn['query'], $data);
+        return ResourceFactory::getInstance()->getStorageObject($data['storage']);
     }
 }
