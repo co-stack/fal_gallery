@@ -14,10 +14,6 @@
 							<config>
 								<type>select</type>
 								<items>
-									<numIndex index="0">
-										<numIndex index="0">Select Plugin type</numIndex>
-										<numIndex index="1"/>
-									</numIndex>
 									<numIndex index="1">
 										<numIndex index="0">Show</numIndex>
 										<numIndex index="1">Gallery->show;</numIndex>
