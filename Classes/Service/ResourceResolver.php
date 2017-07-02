@@ -54,8 +54,11 @@ class ResourceResolver implements SingletonInterface
      * @param string $action
      * @return bool
      */
-    public function isValid(array $parameter, $action)
+    public function isValid($parameter, $action)
     {
+        if (!is_array($parameter)) {
+            return false;
+        }
         if ('showAction' === $action) {
             $parameterKey = 'image';
         } elseif (in_array($action, array('listAction', 'categoryAction'), true)) {
