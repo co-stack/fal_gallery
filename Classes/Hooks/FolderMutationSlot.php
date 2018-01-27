@@ -17,6 +17,7 @@ namespace VerteXVaaR\FalGallery\Hooks;
  */
 
 use TYPO3\CMS\Core\Cache\CacheManager;
+use TYPO3\CMS\Core\Database\DatabaseConnection;
 use TYPO3\CMS\Core\Resource\Folder;
 use TYPO3\CMS\Core\SingletonInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -29,7 +30,7 @@ class FolderMutationSlot implements SingletonInterface
     /**
      * The database connection
      *
-     * @var \TYPO3\CMS\Core\Database\DatabaseConnection
+     * @var DatabaseConnection
      */
     protected $databaseConnection;
 

@@ -16,6 +16,7 @@ namespace VerteXVaaR\FalGallery\Controller;
  * The TYPO3 project - inspiring people to share!
  */
 
+use TYPO3\CMS\Core\Resource\Exception\InsufficientFolderAccessPermissionsException;
 use TYPO3\CMS\Core\Resource\File;
 use TYPO3\CMS\Core\Resource\Filter\FileExtensionFilter;
 use TYPO3\CMS\Core\Resource\Folder;
@@ -23,6 +24,8 @@ use TYPO3\CMS\Core\Resource\ResourceStorage;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use TYPO3\CMS\Extbase\Mvc\Controller\Arguments;
+use TYPO3\CMS\Extbase\Mvc\Exception\InvalidArgumentNameException;
+use TYPO3\CMS\Extbase\Mvc\Exception\NoSuchArgumentException;
 use TYPO3\CMS\Extbase\Property\TypeConverter\FileConverter;
 use VerteXVaaR\FalGallery\Service\ResourceResolver;
 
@@ -109,8 +112,10 @@ class GalleryController extends ActionController
      * The shipped FileConverter does not work because in AbstractFileFolderConverter@54 (6.2.4 core)
      * constructor arguments are not passed to OM->get(File) which results in an exception
      *
-     * @throws \TYPO3\CMS\Extbase\Mvc\Exception\NoSuchArgumentException
      * @return void
+     *
+     * @throws \TYPO3\CMS\Extbase\Mvc\Exception\NoSuchArgumentException
+     * @throws InvalidArgumentNameException
      */
     public function initializeShowAction()
     {
@@ -151,6 +156,8 @@ class GalleryController extends ActionController
     }
 
     /**
+     * @throws InsufficientFolderAccessPermissionsException
+     *
      * @return void
      */
     public function initializeListAction()
@@ -159,9 +166,13 @@ class GalleryController extends ActionController
             $this->arguments = $this->objectManager->get(Arguments::class);
             return;
         }
-        $this->setFileTypeConverterFor('image');
-        $this->setFileTypeConverterFor('listFolder');
-        $this->setFileTypeConverterFor('categoryFolder');
+        try {
+            $this->setFileTypeConverterFor('image');
+            $this->setFileTypeConverterFor('listFolder');
+            $this->setFileTypeConverterFor('categoryFolder');
+        } catch (InvalidArgumentNameException $e) {
+        } catch (NoSuchArgumentException $e) {
+        }
         $this->resolveStorageInformation();
         $this->setFileExtensionFilter();
     }
@@ -174,6 +185,8 @@ class GalleryController extends ActionController
      * @param int $categoryPage
      *
      * @return string|null
+     *
+     * @throws InsufficientFolderAccessPermissionsException
      */
     public function listAction(
         File $image = null,
@@ -225,6 +238,8 @@ class GalleryController extends ActionController
 
     /**
      * @return void
+     *
+     * @throws InsufficientFolderAccessPermissionsException
      */
     public function initializeCategoryAction()
     {
@@ -232,9 +247,13 @@ class GalleryController extends ActionController
             $this->arguments = $this->objectManager->get(Arguments::class);
             return;
         }
-        $this->setFileTypeConverterFor('image');
-        $this->setFileTypeConverterFor('listFolder');
-        $this->setFileTypeConverterFor('categoryFolder');
+        try {
+            $this->setFileTypeConverterFor('image');
+            $this->setFileTypeConverterFor('listFolder');
+            $this->setFileTypeConverterFor('categoryFolder');
+        } catch (InvalidArgumentNameException $e) {
+        } catch (NoSuchArgumentException $e) {
+        }
         $this->resolveStorageInformation();
         $this->setFileExtensionFilter();
     }
@@ -251,6 +270,8 @@ class GalleryController extends ActionController
      * @param int $listPage
      *
      * @return string|null
+     *
+     * @throws InsufficientFolderAccessPermissionsException
      */
     public function categoryAction(
         File $image = null,
@@ -342,11 +363,12 @@ class GalleryController extends ActionController
     }
 
     /**
-     * @param $argumentName
+     * @param string $argumentName
+     *
+     * @return void
      *
      * @throws \TYPO3\CMS\Extbase\Mvc\Exception\InvalidArgumentNameException
      * @throws \TYPO3\CMS\Extbase\Mvc\Exception\NoSuchArgumentException
-     * @return void
      */
     protected function setFileTypeConverterFor($argumentName)
     {
@@ -386,6 +408,8 @@ class GalleryController extends ActionController
      * @param Folder $folder
      *
      * @return File
+     *
+     * @throws InsufficientFolderAccessPermissionsException
      */
     protected function getFolderImage(Folder $folder)
     {
@@ -401,6 +425,8 @@ class GalleryController extends ActionController
      * @param Folder $folder
      *
      * @return array
+     *
+     * @throws InsufficientFolderAccessPermissionsException
      */
     protected function getSubFoldersWithImage(Folder $folder)
     {
@@ -446,9 +472,10 @@ class GalleryController extends ActionController
     /**
      * Set the storage and folder to use for the Plugins
      *
-     * @throws \Exception
-     * @throws \TYPO3\CMS\Core\Resource\Exception\InsufficientFolderAccessPermissionsException
      * @return void
+     *
+     * @throws \Exception
+     * @throws InsufficientFolderAccessPermissionsException
      */
     protected function resolveStorageInformation()
     {
