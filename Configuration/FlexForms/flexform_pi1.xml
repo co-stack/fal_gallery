@@ -46,29 +46,15 @@
 							<label>Default Image</label>
 							<config>
 								<type>input</type>
-								<size>30</size>
-								<eval>trim</eval>
-								<wizards type="array">
-									<_PADDING type="integer">2</_PADDING>
-									<link type="array">
-										<type>popup</type>
-										<title>Link</title>
-										<icon>link_popup.gif</icon>
-										<module>
-											<name>wizard_element_browser</name>
-											<urlParameters>
-												<mode>wizard</mode>
-												<act>file</act>
-											</urlParameters>
-										</module>
-										<params type="array">
-											<JSopenParams>height=300,width=500,status=0,menubar=0,scrollbars=1
-											</JSopenParams>
-											<blindLinkFields>params,class</blindLinkFields>
-											<blindLinkOptions>page,mail,spec,folder,url</blindLinkOptions>
-										</params>
-									</link>
-								</wizards>
+								<renderType>inputLink</renderType>
+								<fieldControl>
+									<linkPopup>
+										<options>
+											<blindLinkFields>class, params, target, title</blindLinkFields>
+											<blindLinkOptions>folder, mail, page, spec, url</blindLinkOptions>
+										</options>
+									</linkPopup>
+								</fieldControl>
 							</config>
 						</TCEforms>
 					</settings.default.image>
@@ -97,28 +83,15 @@
 							<label>Default Source Folder</label>
 							<config>
 								<type>input</type>
-								<size>30</size>
-								<eval>trim</eval>
-								<wizards type="array">
-									<_PADDING type="integer">2</_PADDING>
-									<link type="array">
-										<type>popup</type>
-										<title>Link</title>
-										<icon>link_popup.gif</icon>
-										<module>
-											<name>wizard_element_browser</name>
-											<urlParameters>
-												<mode>wizard</mode>
-												<act>file</act>
-											</urlParameters>
-										</module>
-										<params type="array">
-											<JSopenParams xml:space="preserve">height=300,width=500,status=0,menubar=0,scrollbars=1</JSopenParams>
-											<blindLinkFields>params,class</blindLinkFields>
-											<blindLinkOptions>page,mail,spec,file,url</blindLinkOptions>
-										</params>
-									</link>
-								</wizards>
+								<renderType>inputLink</renderType>
+								<fieldControl>
+									<linkPopup>
+										<options>
+											<blindLinkFields>class, params, target, title</blindLinkFields>
+											<blindLinkOptions>file, mail, page, spec, url</blindLinkOptions>
+										</options>
+									</linkPopup>
+								</fieldControl>
 							</config>
 						</TCEforms>
 					</settings.default.folder>
@@ -147,28 +120,15 @@
 							<label>Root Source Folder</label>
 							<config>
 								<type>input</type>
-								<size>30</size>
-								<eval>trim</eval>
-								<wizards type="array">
-									<_PADDING type="integer">2</_PADDING>
-									<link type="array">
-										<type>popup</type>
-										<title>Link</title>
-										<icon>link_popup.gif</icon>
-										<module>
-											<name>wizard_element_browser</name>
-											<urlParameters>
-												<mode>wizard</mode>
-												<act>file</act>
-											</urlParameters>
-										</module>
-										<params type="array">
-											<JSopenParams xml:space="preserve">height=300,width=500,status=0,menubar=0,scrollbars=1</JSopenParams>
-											<blindLinkFields>params,class</blindLinkFields>
-											<blindLinkOptions>page,mail,spec,file,url</blindLinkOptions>
-										</params>
-									</link>
-								</wizards>
+								<renderType>inputLink</renderType>
+								<fieldControl>
+									<linkPopup>
+										<options>
+											<blindLinkFields>class, params, target, title</blindLinkFields>
+											<blindLinkOptions>file, mail, page, spec, url</blindLinkOptions>
+										</options>
+									</linkPopup>
+								</fieldControl>
 							</config>
 						</TCEforms>
 					</settings.default.folder>

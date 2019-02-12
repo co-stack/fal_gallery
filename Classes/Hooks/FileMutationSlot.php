@@ -16,8 +16,11 @@ namespace VerteXVaaR\FalGallery\Hooks;
  * The TYPO3 project - inspiring people to share!
  */
 
+use Doctrine\DBAL\Connection;
+use Doctrine\DBAL\DBALException;
 use TYPO3\CMS\Core\Cache\CacheManager;
-use TYPO3\CMS\Core\Database\DatabaseConnection;
+use TYPO3\CMS\Core\Database\ConnectionPool;
+use TYPO3\CMS\Core\LinkHandling\LinkService;
 use TYPO3\CMS\Core\Resource\FileInterface;
 use TYPO3\CMS\Core\Resource\Folder;
 use TYPO3\CMS\Core\Resource\FolderInterface;
@@ -30,9 +33,9 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 class FileMutationSlot implements SingletonInterface
 {
     /**
-     * @var DatabaseConnection
+     * @var Connection
      */
-    protected $databaseConnection;
+    protected $connection;
 
     /**
      * FileMutationSlot constructor.
@@ -198,31 +201,34 @@ class FileMutationSlot implements SingletonInterface
     {
         $pids = [];
 
-        if ($folder instanceof Folder) {
-            if ($folder->getStorage()->getDriverType() === 'Local') {
-                $res = $this->databaseConnection->sql_query(
-                    "SELECT
-                  pid,
-				  ExtractValue(
-				    pi_flexform,
-				    '/T3FlexForms/data/sheet[@index=''list'']/language/field[@index=''settings.default.folder'']/value'
-				  ) as folder
-				FROM
-				  tt_content
-				WHERE
-				  list_type = 'falgallery_pi1'
-				  AND deleted = 0
-				  AND hidden = 0
-				  AND ExtractValue(
-				    pi_flexform,
-				    '/T3FlexForms/data/sheet[@index=''list'']/language/field[@index=''settings.default.folder'']/value'
-				  ) LIKE 'file:"
-                    . $folder->getCombinedIdentifier() . "%'"
-                );
-                while (($row = $this->databaseConnection->sql_fetch_assoc($res))) {
-                    $pids[] = $row['pid'];
-                }
-                $this->databaseConnection->sql_free_result($res);
+        if (!($folder instanceof Folder)) {
+            return $pids;
+        }
+
+        if ($folder->getStorage()->getDriverType() === 'Local') {
+            $identifier = GeneralUtility::makeInstance(LinkService::class)
+                                        ->asString(['type' => LinkService::TYPE_FOLDER, 'folder' => $folder]);
+            $identifier = htmlspecialchars($identifier);
+            $query = <<<SQL
+SELECT pid,
+  ExtractValue(
+      pi_flexform,
+      '/T3FlexForms/data/sheet[@index=''list'']/language/field[@index=''settings.default.folder'']/value'
+    ) as folder
+FROM tt_content
+WHERE list_type = 'falgallery_pi1' AND deleted = 0 AND hidden = 0 AND ExtractValue(
+    pi_flexform,
+    '/T3FlexForms/data/sheet[@index=''list'']/language/field[@index=''settings.default.folder'']/value'
+  ) LIKE '$identifier%'
+SQL;
+            try {
+                $statement = $this->connection->query($query);
+            } catch (DBALException $e) {
+                return [];
+            }
+            $statement->execute();
+            while ($row = $statement->fetch(\PDO::FETCH_ASSOC)) {
+                $pids[] = $row['pid'];
             }
         }
 
@@ -238,6 +244,6 @@ class FileMutationSlot implements SingletonInterface
      */
     private function setDatabaseConnection()
     {
-        $this->databaseConnection = $GLOBALS['TYPO3_DB'];
+        $this->connection = GeneralUtility::makeInstance(ConnectionPool::class)->getConnectionForTable('tt_content');
     }
 }

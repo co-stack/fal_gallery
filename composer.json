@@ -1,20 +1,25 @@
 {
-  "name": "vertexvaar/fal_gallery",
-  "description": "FAL bases gallery for TYPO3, successor of wt_gallery",
-  "type": "typo3-cms-extension",
-  "license": "GPL-2.0",
-  "authors": [
-    {
-      "name": "Oliver Eglseder",
-      "email": "php@vxvr.de"
+    "name": "vertexvaar/fal_gallery",
+    "description": "FAL bases gallery for TYPO3, successor of wt_gallery",
+    "type": "typo3-cms-extension",
+    "license": "GPL-2.0",
+    "authors": [
+        {
+            "name": "Oliver Eglseder",
+            "email": "php@vxvr.de"
+        }
+    ],
+    "require": {
+        "php": "^7.0",
+        "ext-pdo": "*",
+        "typo3/cms-core": "^8.7 || ^9.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "VerteXVaaR\\FalGallery\\": "Classes/"
+        }
+    },
+    "suggest": {
+        "ext-exif": "Install the PHP EXIF extension to display exif data of your pictures"
     }
-  ],
-  "require": {
-    "typo3/cms-core": ">=7.6.0 <9.1"
-  },
-  "autoload": {
-    "psr-4": {
-      "VerteXVaaR\\FalGallery\\": "Classes/"
-    }
-  }
 }
