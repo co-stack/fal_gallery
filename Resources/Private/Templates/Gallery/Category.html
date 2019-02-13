@@ -12,7 +12,9 @@
         <f:for each="{col}" as="folder">
             <div class="col" style="float: left">
                 <f:link.action arguments="{categoryFolder:folder.folderImage.uid, image:currentImage.uid, listFolder:folder.folderImage.uid}">
-                    <f:image image="{folder.folderImage}" width="{settings.size.width}" height="{settings.size.height}"/>
+                    <f:if condition="{folder.folderImage}">
+                        <f:image image="{folder.folderImage}" width="{settings.size.width}" height="{settings.size.height}"/>
+                    </f:if>
                     <span><fgl:underscoreToSpace>{folder.folder.name}</fgl:underscoreToSpace></span>
                 </f:link.action>
             </div>
