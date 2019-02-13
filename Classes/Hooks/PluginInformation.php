@@ -18,6 +18,11 @@ namespace VerteXVaaR\FalGallery\Hooks;
 
 use TYPO3\CMS\Backend\Utility\BackendUtility;
 use TYPO3\CMS\Backend\View\PageLayoutView;
+use TYPO3\CMS\Core\LinkHandling\Exception\UnknownLinkHandlerException;
+use TYPO3\CMS\Core\LinkHandling\Exception\UnknownUrnException;
+use TYPO3\CMS\Core\LinkHandling\LinkService;
+use TYPO3\CMS\Core\Resource\File;
+use TYPO3\CMS\Core\Resource\Folder;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Service\FlexFormService;
 
@@ -27,9 +32,17 @@ use TYPO3\CMS\Extbase\Service\FlexFormService;
 class PluginInformation
 {
     /**
+     * TODO: replace with TYPO3\CMS\Core\Service\FlexFormService when dropping TYPO3 v8
+     *
+     * This class has an alias in TYPO3 v9
      * @var FlexFormService
      */
     protected $flexFormService = null;
+
+    /**
+     * @var LinkService
+     */
+    protected $linkService = null;
 
     /**
      * PluginInformation constructor.
@@ -37,6 +50,7 @@ class PluginInformation
     public function __construct()
     {
         $this->flexFormService = GeneralUtility::makeInstance(FlexFormService::class);
+        $this->linkService = GeneralUtility::makeInstance(LinkService::class);
     }
 
     /**
@@ -50,10 +64,84 @@ class PluginInformation
         $row = $contentElement['row'];
         $label = BackendUtility::getLabelFromItemListMerged($row['pid'], 'tt_content', 'list_type', $row['list_type']);
         $config = $this->flexFormService->convertFlexFormContentToArray($row['pi_flexform']);
+        $pluginType = $this->getSelectedPluginType($config);
+
+        $defaultSource = '&gt;none&lt;';
+        $defaultStorage = '&gt;none&lt;';
+        switch ($pluginType) {
+            case 'show':
+                $this->resolveFileInformation($config, $defaultSource, $defaultStorage);
+                break;
+            case 'list':
+                $this->resolveFolderInformation($config, $defaultSource, $defaultStorage);
+                break;
+            case 'category':
+                $this->resolveFolderInformation($config, $defaultSource, $defaultStorage);
+                break;
+            default:
+                break;
+        }
+        $pluginType = ucfirst($pluginType);
+
+        $pluginDescription = <<<HTML
+<strong>$label</strong> - $pluginType<br/>
+Default source: $defaultSource<br/>
+File storage: $defaultStorage
+HTML;
+        return $pageLayoutView->linkEditContent($pluginDescription, $row);
+    }
+
+    /**
+     * @param array $config
+     * @return string
+     */
+    protected function getSelectedPluginType(array $config)
+    {
         preg_match('~Gallery\->(?P<type>\w+);~', $config['switchableControllerActions'], $matches);
-        return $pageLayoutView->linkEditContent(
-            '<strong>' . $label . '</strong>' . ' - ' . ucfirst($matches['type']),
-            $row
-        );
+        return $matches['type'];
+    }
+
+    /**
+     * @param $config
+     * @param string $defaultSource
+     * @param string $defaultStorage
+     */
+    protected function resolveFolderInformation(array $config, &$defaultSource, &$defaultStorage)
+    {
+        if (isset($config['settings']['default']['folder'])) {
+            $folderIdentifier = $config['settings']['default']['folder'];
+            /** @var Folder $folder */
+            try {
+                $folder = $this->linkService->resolveByStringRepresentation($folderIdentifier)['folder'];
+            } catch (UnknownLinkHandlerException $e) {
+                return;
+            } catch (UnknownUrnException $e) {
+                return;
+            }
+            $defaultSource = $folder->getReadablePath();
+            $defaultStorage = $folder->getStorage()->getName();
+        }
+    }
+
+    /**
+     * @param $config
+     * @param string $defaultSource
+     * @param string $defaultStorage
+     */
+    protected function resolveFileInformation(array $config, &$defaultSource, &$defaultStorage)
+    {
+        if (isset($config['settings']['default']['image'])) {
+            $imageIdentifier = $config['settings']['default']['image'];
+            /** @var File $image */
+            try {
+                $image = $this->linkService->resolveByStringRepresentation($imageIdentifier)['file'];
+            } catch (UnknownLinkHandlerException $e) {
+                return;
+            } catch (UnknownUrnException $e) {
+                return;
+            }
+            $defaultSource = $image->getIdentifier();
+            $defaultStorage = $image->getStorage()->getName();
+        }
     }
 }
