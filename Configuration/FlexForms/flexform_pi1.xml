@@ -219,7 +219,7 @@
 					</settings.cols>
 					<settings.extension>
 						<TCEforms>
-							<label xml:space="preserve">Supported Images extension. If none selected$GLOBALS['TYPO3_CONF_VARS']['GFX']['imagefile_ext'] will be used</label>
+							<label xml:space="preserve">Supported Images extension. If none selected $GLOBALS['TYPO3_CONF_VARS']['GFX']['imagefile_ext'] will be used</label>
 							<config>
 								<type>select</type>
 								<items type="array">
