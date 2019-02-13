@@ -1,5 +1,5 @@
 <?php
-namespace VerteXVaaR\FalGallery\Hooks;
+namespace CoStack\FalGallery\Hooks;
 
 /*
  * (c) Oliver Eglseder <php@vxvr.de>

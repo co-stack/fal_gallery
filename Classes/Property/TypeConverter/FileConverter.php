@@ -1,5 +1,5 @@
 <?php
-namespace VerteXVaaR\FalGallery\Property\TypeConverter;
+namespace CoStack\FalGallery\Property\TypeConverter;
 
 /*
  * (c) Oliver Eglseder <php@vxvr.de>

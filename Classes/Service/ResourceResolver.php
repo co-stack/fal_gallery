@@ -1,5 +1,5 @@
 <?php
-namespace VerteXVaaR\FalGallery\Service;
+namespace CoStack\FalGallery\Service;
 
 /*
  * (c) Oliver Eglseder <php@vxvr.de>

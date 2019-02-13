@@ -1,8 +1,14 @@
 {
-    "name": "vertexvaar/fal_gallery",
+    "name": "co-stack/fal_gallery",
     "description": "FAL bases gallery for TYPO3, successor of wt_gallery",
     "type": "typo3-cms-extension",
     "license": "GPL-2.0",
+    "support": {
+        "email": "codi@co-stack.com",
+        "docs": "https://docs.typo3.org/typo3cms/extensions/fal_gallery/",
+        "issues": "https://github.com/co-stack/fal_gallery/issues",
+        "source": "https://github.com/co-stack/fal_gallery"
+    },
     "authors": [
         {
             "name": "Oliver Eglseder",
@@ -16,7 +22,7 @@
     },
     "autoload": {
         "psr-4": {
-            "VerteXVaaR\\FalGallery\\": "Classes/"
+            "CoStack\\FalGallery\\": "Classes/"
         }
     },
     "suggest": {

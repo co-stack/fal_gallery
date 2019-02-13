@@ -1,5 +1,5 @@
 <?php
-namespace VerteXVaaR\FalGallery\Hooks;
+namespace CoStack\FalGallery\Hooks;
 
 /*
  * (c) 2015 Michiel Roos <michiel@maxserv.com>

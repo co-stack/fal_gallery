@@ -1,5 +1,5 @@
 <?php
-namespace VerteXVaaR\FalGallery\Controller;
+namespace CoStack\FalGallery\Controller;
 
 /*
  * (c) Oliver Eglseder <php@vxvr.de>
@@ -27,7 +27,7 @@ use TYPO3\CMS\Extbase\Mvc\Controller\Arguments;
 use TYPO3\CMS\Extbase\Mvc\Exception\InvalidArgumentNameException;
 use TYPO3\CMS\Extbase\Mvc\Exception\NoSuchArgumentException;
 use TYPO3\CMS\Extbase\Property\TypeConverter\FileConverter;
-use VerteXVaaR\FalGallery\Service\ResourceResolver;
+use CoStack\FalGallery\Service\ResourceResolver;
 
 /**
  * INFO: Storage must not change between Plugins
@@ -381,7 +381,7 @@ class GalleryController extends ActionController
             }
             /** @var FileConverter $fileConverter */
             $fileConverter = $this->objectManager->get(
-                \VerteXVaaR\FalGallery\Property\TypeConverter\FileConverter::class
+                \CoStack\FalGallery\Property\TypeConverter\FileConverter::class
             );
             $this->arguments->getArgument($argumentName)->getPropertyMappingConfiguration()->setTypeConverter(
                 $fileConverter
