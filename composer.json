@@ -1,6 +1,6 @@
 {
     "name": "co-stack/fal_gallery",
-    "description": "FAL bases gallery for TYPO3, successor of wt_gallery",
+    "description": "Easy to use folder based gallery with separate single-, category- and list view that supports any TYPO3 FAL driver. Official successor of wt_gallery",
     "type": "typo3-cms-extension",
     "license": "GPL-2.0",
     "support": {
@@ -9,6 +9,12 @@
         "issues": "https://github.com/co-stack/fal_gallery/issues",
         "source": "https://github.com/co-stack/fal_gallery"
     },
+    "keywords": [
+        "TYPO3",
+        "FAL",
+        "Gallery",
+        "wt_gallery"
+    ],
     "authors": [
         {
             "name": "Oliver Eglseder",
