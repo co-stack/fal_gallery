@@ -27,5 +27,10 @@
     },
     "suggest": {
         "ext-exif": "Install the PHP EXIF extension to display exif data of your pictures"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "3.0.x-dev"
+        }
     }
 }
