@@ -55,11 +55,11 @@ class PluginInformation
 
     /**
      * @param array $contentElement
-     * @param PageLayoutView $pageLayoutView
+     * @param PageLayoutView $pageLayoutView In core PageLayoutView in TemplaVoilà! Plus BackendLayoutController
      *
      * @return string
      */
-    public function build(array $contentElement, PageLayoutView $pageLayoutView)
+    public function build(array $contentElement, $pageLayoutView)
     {
         $row = $contentElement['row'];
         $label = BackendUtility::getLabelFromItemListMerged($row['pid'], 'tt_content', 'list_type', $row['list_type']);
@@ -88,7 +88,10 @@ class PluginInformation
 Default source: $defaultSource<br/>
 File storage: $defaultStorage
 HTML;
-        return $pageLayoutView->linkEditContent($pluginDescription, $row);
+        if ($pageLayoutView instanceof PageLayoutView) {
+            return $pageLayoutView->linkEditContent($pluginDescription, $row);
+        }
+        return $pluginDescription;
     }
 
     /**
