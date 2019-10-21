@@ -82,7 +82,9 @@ class GalleryController extends ActionController
      */
     public function __construct()
     {
-        parent::__construct();
+        if (method_exists(ActionController::class, '__construct')) {
+            parent::__construct();
+        }
         $this->resourceResolver = GeneralUtility::makeInstance(ResourceResolver::class);
     }
 

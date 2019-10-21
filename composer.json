@@ -24,7 +24,7 @@
     "require": {
         "php": "^7.0",
         "ext-pdo": "*",
-        "typo3/cms-core": "^8.7 || ^9.5"
+        "typo3/cms-core": "^8.7 || ^9.5 || ^10.0"
     },
     "autoload": {
         "psr-4": {

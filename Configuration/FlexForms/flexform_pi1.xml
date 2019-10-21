@@ -13,6 +13,7 @@
 							<onChange>reload</onChange>
 							<config>
 								<type>select</type>
+								<renderType>selectSingle</renderType>
 								<items>
 									<numIndex index="1">
 										<numIndex index="0">Show</numIndex>
@@ -171,6 +172,7 @@
 							<label>Select Image cropping direction</label>
 							<config>
 								<type>select</type>
+								<renderType>selectSingle</renderType>
 								<items type="array">
 									<numIndex index="0" type="array">
 										<numIndex index="0">No Cropping</numIndex>
@@ -222,6 +224,7 @@
 							<label xml:space="preserve">Supported Images extension. If none selected $GLOBALS['TYPO3_CONF_VARS']['GFX']['imagefile_ext'] will be used</label>
 							<config>
 								<type>select</type>
+								<renderType>selectCheckBox</renderType>
 								<items type="array">
 									<numIndex index="0" type="array">
 										<numIndex index="0">jpg</numIndex>

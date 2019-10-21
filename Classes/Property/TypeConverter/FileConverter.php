@@ -19,6 +19,7 @@ namespace CoStack\FalGallery\Property\TypeConverter;
 use TYPO3\CMS\Core\Resource\File;
 use TYPO3\CMS\Core\Resource\FileInterface;
 use TYPO3\CMS\Core\Resource\Folder;
+use TYPO3\CMS\Core\Resource\ResourceInterface;
 use TYPO3\CMS\Core\SingletonInterface;
 
 /**
@@ -46,7 +47,7 @@ class FileConverter extends AbstractFileFolderConverter implements SingletonInte
      *
      * @return FileInterface|Folder
      */
-    protected function getOriginalResource($source)
+    protected function getOriginalResource($source): ?ResourceInterface
     {
         return $this->fileFactory->retrieveFileOrFolderObject($source);
     }

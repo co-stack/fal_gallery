@@ -11,7 +11,7 @@
     <div class="row">
         <f:for each="{col}" as="folder">
             <div class="col" style="float: left">
-                <f:link.action arguments="{categoryFolder:folder.folderImage.uid, image:currentImage.uid, listFolder:folder.folderImage.uid}">
+                <f:link.action action="category" arguments="{categoryFolder:folder.folderImage.uid, image:currentImage.uid, listFolder:folder.folderImage.uid}">
                     <f:if condition="{folder.folderImage}">
                         <f:image image="{folder.folderImage}" width="{settings.size.width}" height="{settings.size.height}"/>
                     </f:if>
@@ -25,26 +25,26 @@
 <f:if condition="{numberOfPages} > 1">
     <f:if condition="{isFirstPage}">
         <f:else>
-            <f:link.action arguments="{image:currentImage.uid, listPage:currentListPage, listFolder:currentListFolder.uid, categoryPage:previousPage, categoryFolder:currentCategoryFolder.uid}">
+            <f:link.action action="category" arguments="{image:currentImage.uid, listPage:currentListPage, listFolder:currentListFolder.uid, categoryPage:previousPage, categoryFolder:currentCategoryFolder.uid}">
                 <f:translate key="previous">previous</f:translate>
             </f:link.action>
         </f:else>
     </f:if>
     <f:if condition="{isLastPage}">
         <f:else>
-            <f:link.action arguments="{image:currentImage.uid, listPage:currentListPage, listFolder:currentListFolder.uid, categoryPage:nextPage, categoryFolder:currentCategoryFolder.uid}">
+            <f:link.action action="category" arguments="{image:currentImage.uid, listPage:currentListPage, listFolder:currentListFolder.uid, categoryPage:nextPage, categoryFolder:currentCategoryFolder.uid}">
                 <f:translate key="next">next</f:translate>
             </f:link.action>
         </f:else>
     </f:if>
 </f:if>
 <f:if condition="{parentFolderImage}">
-    <f:link.action arguments="{categoryFolder:parentFolderImage.uid, image:currentImage.uid, listPage:currentListPage}">
+    <f:link.action action="category" arguments="{categoryFolder:parentFolderImage.uid, image:currentImage.uid, listPage:currentListPage}">
         <f:translate key="upwards">Upwards</f:translate>
     </f:link.action>
 </f:if>
 <f:if condition="{upwardsIsSelectedFolder}">
-    <f:link.action arguments="{image:currentImage.uid, listPage:currentListPage}">
+    <f:link.action action="category" arguments="{image:currentImage.uid, listPage:currentListPage}">
         <f:translate key="upwards">Upwards</f:translate>
     </f:link.action>
 </f:if>

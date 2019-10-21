@@ -17,6 +17,7 @@ namespace CoStack\FalGallery\Property\TypeConverter;
  */
 
 use TYPO3\CMS\Core\Resource\ResourceInterface;
+use TYPO3\CMS\Extbase\Domain\Model\AbstractFileFolder;
 use TYPO3\CMS\Extbase\Property\Exception;
 use TYPO3\CMS\Extbase\Property\PropertyMappingConfigurationInterface;
 
@@ -39,10 +40,10 @@ abstract class AbstractFileFolderConverter extends \TYPO3\CMS\Extbase\Property\T
      */
     public function convertFrom(
         $source,
-        $targetType,
+        string $targetType,
         array $convertedChildProperties = [],
         PropertyMappingConfigurationInterface $configuration = null
-    ) {
+    ): AbstractFileFolder {
         $object = $this->getOriginalResource($source);
         if (empty($this->expectedObjectType) || !$object instanceof $this->expectedObjectType) {
             throw new Exception(
